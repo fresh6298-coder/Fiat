@@ -1,0 +1,186 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 10강 화폐</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 10강 · 화폐</h1>
+    <div class="sub">교환가능성(salability) · 경도(hardness)와 스톡-플로우 비율 · 화폐의 자생적 발생 · 화폐 공급은 늘 필요가 없다</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 10강(<a href="https://www.youtube.com/watch?v=_nSF9yZWalA" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>화폐가 푸는 문제: 욕구의 불일치</h2>
+      <p class="lead">The coincidence of wants problem</p>
+      <p>물물교환은 "내가 원하는 걸 가진 사람이, 마침 내가 가진 걸 원해야" 성립합니다. 이 <b>욕구의 불일치(coincidence of wants)</b> 문제가 경제 규모가 커질수록 심해지자, 사람들은 그 자체로는 필요 없지만 나중에 원하는 것과 교환할 수 있는 <b>매개재(medium of exchange)</b>를 받아두기 시작했습니다. 이것이 화폐의 기원입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>교환가능성(salability): 좋은 화폐를 가르는 기준</h2>
+      <p class="lead">Salability across scale, space, and time</p>
+      <p>어떤 재화가 화폐로 적합한지는 <b>교환가능성(salability)</b> — 시장가에 가깝게 팔 수 있는 용이함 — 으로 판단할 수 있습니다. 욕구 불일치 문제는 네 가지 측면(재화 간, 공간, 규모, 시간)에서 나타나며, 각각을 잘 해결하는 성질이 좋은 화폐의 조건이 됩니다.</p>
+      <ul>
+        <li><b>공간</b> — 쉽게 운반 가능해야 함 → 땅은 나쁜 화폐, 소액 귀금속은 좋은 화폐</li>
+        <li><b>규모</b> — 나누거나 합칠 수 있어야 함(균질성) → 금속이 유리</li>
+        <li><b>시간</b> — 부패하지 않고 오래 보존되어야 함 → 금·은이 유리, 사과는 불리</li>
+      </ul>
+      <p>금과 은이 역사적으로 화폐가 된 이유는 이 세 가지를 모두 잘 만족했기 때문입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>경도(hardness)와 스톡-플로우 비율</h2>
+      <p class="lead">Hard money vs. easy money</p>
+      <p>강의가 가장 강조하는 것은 시간축의 교환가능성, 즉 <b>화폐의 "경도(hardness)"</b>입니다. 이는 "기존에 쌓여있는 재고(스톡)를 새로운 생산(플로우)으로 얼마나 쉽게 늘릴 수 있는가"로 측정합니다. 구리·니켈 같은 산업금속은 소모되기 때문에 재고가 연간 생산량과 비슷한 수준(스톡-플로우 비율 ≈ 1)에 그치지만, 금은 부식되지 않아 수천 년치 생산량이 쌓여 있고 연간 생산량은 그 1~2%에 불과합니다(스톡-플로우 비율 약 50~60). 이렇게 <b>재고가 압도적으로 커서 새로운 생산으로 가격을 쉽게 떨어뜨릴 수 없는 재화</b>가 좋은(단단한, hard) 화폐가 됩니다.</p>
+      <p>만약 어떤 재화를 화폐로 쓰려는 시도가 나타나 가격이 오르면, 스톡-플로우 비율이 낮은 재화는 생산자들이 손쉽게 공급을 늘려 가격을 무너뜨립니다(강의는 이를 "이지머니 함정"이라 부릅니다). 반대로 금처럼 스톡-플로우 비율이 높으면 아무리 수요가 늘어도 공급이 그에 비례해 늘지 않아 가치가 유지·상승합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>화폐는 "집단 환각"이 아니다</h2>
+      <p class="lead">Money is not a collective hallucination</p>
+      <p>강의는 "화폐는 우리가 서로에게 하는 이야기일 뿐"이라는 주장(유발 하라리 등을 겨냥)을 강하게 반박합니다. 비행기가 실제로 양력과 추진력이 있어야 날 수 있는 것처럼, 화폐도 앞서 설명한 <b>교환가능성이라는 실질적 기능을 충족해야만 화폐로 작동</b>합니다. 아무리 사람들이 "구리를 화폐로 믿자"고 집단적으로 합의해도, 구리의 낮은 스톡-플로우 비율 때문에 결국 실패한다는 것이 강의의 논리입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>화폐는 국가가 만든 것이 아니다 (미제스의 회귀정리)</h2>
+      <p class="lead">Money emerges from the market, not the state</p>
+      <p>오스트리아학파는 화폐가 국가의 명령 없이 시장 스스로 만들어낸다고 봅니다(멩거). 실제로 금은 오늘날 존재하는 모든 국가보다 먼저 화폐였습니다. 미제스는 "회귀정리"를 통해, 평범한 시장재가 어떻게 화폐 수요를 얻어 점점 더 교환가능성이 높아지는 화폐로 발전하는지 설명합니다. 강의는 "법정화폐(fiat money)"라는 용어도 misnomer라고 지적하는데, 역사적으로 정부가 "이 종이를 화폐로 하라"고 선언해서 화폐가 된 사례는 없으며, 대부분 <b>원래 금 태환을 약속한 화폐(종이·신용)였다가, 정부가 그 약속을 어기면서(태환 중단)</b> 지금의 형태가 되었다는 것입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>화폐가 주는 세 가지 경제적 이득</h2>
+      <p class="lead">Three benefits of money</p>
+      <ul>
+        <li><b>분업 확대</b> — 낯선 사람과도 안심하고 거래할 수 있어 분업의 범위가 커짐.</li>
+        <li><b>경제적 계산</b> — 모든 가격이 하나의 재화(화폐)로 표시되면서 가격 개수가 극적으로 줄어듦(재화 n개일 때 물물교환은 약 n(n-1)/2개, 화폐경제는 n개의 가격만 필요). 이는 복잡한 생산을 계획하는 데 필수적.</li>
+        <li><b>시간선호 하락</b> — 화폐는 교환가능성이 높아 다른 재화보다 저축 수단으로 우수하며, 저축을 유리하게 만들어 미래 대비 유인을 높임.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">7</span>왜 "화폐 공급을 늘려야 한다"는 주장에 반박하는가</h2>
+      <p class="lead">Purchasing power, not quantity, is what matters</p>
+      <p>강의의 핵심 결론은, 필요한 것은 <b>화폐의 양이 아니라 구매력</b>이라는 것입니다. 화폐 공급이 고정돼 있어도, 사람들이 더 많이 저축하려 하면 화폐의 <b>구매력이 올라갈 뿐</b>(가격이 내려갈 뿐)이며, 이는 오히려 좋은 일이라고 봅니다. 케인지언의 "저축의 역설"(저축 증가 → 소비 감소 → 실업 증가)에 대해서는, 소비 감소가 곧 저축·투자 증가로 이어져(6강의 논리) 소비재 부문 고용이 자본재 부문 고용으로 옮겨갈 뿐이라고 반박합니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">욕구의 불일치 (Coincidence of Wants)</div><div class="d">내가 원하는 것을 가진 사람이 마침 내가 가진 것을 원해야 물물교환이 성립하는 문제.</div></div>
+        <div class="term"><div class="t">교환가능성 (Salability)</div><div class="d">시장가에 가깝게 신속히 팔 수 있는 재화의 성질. 좋은 화폐의 핵심 조건.</div></div>
+        <div class="term"><div class="t">경도/하드머니 (Hardness / Hard Money)</div><div class="d">기존 재고를 새 생산으로 늘리기 어려운 정도. 높을수록 가치 저장에 유리.</div></div>
+        <div class="term"><div class="t">스톡-플로우 비율 (Stock-to-Flow Ratio)</div><div class="d">기존 재고 ÷ 연간 생산량. 금은 약 50~60, 산업금속은 1 안팎.</div></div>
+        <div class="term"><div class="t">이지머니 함정 (Easy Money Trap)</div><div class="d">스톡-플로우 비율이 낮은 재화를 화폐로 쓰려 하면 생산자가 쉽게 공급을 늘려 가치를 무너뜨리는 현상.</div></div>
+        <div class="term"><div class="t">회귀정리 (Regression Theorem)</div><div class="d">미제스가 제시한, 화폐가 평범한 시장재에서 자생적으로 발전한다는 이론.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 물물교환의 근본 문제는 무엇이며 화폐는 이를 어떻게 해결하는가?</summary><div class="a"><b>정답:</b> 욕구의 불일치(내가 원하는 걸 가진 사람이 내가 가진 걸 원해야 성립). 화폐는 모두가 받아주는 매개재를 둠으로써 이 조건을 없앤다.</div></details>
+      <details class="q"><summary>Q2. 금과 은이 화폐로 선택된 이유를 교환가능성의 세 측면으로 설명하면?</summary><div class="a"><b>정답:</b> 공간(운반이 쉬움), 규모(나누고 합칠 수 있음), 시간(부식되지 않고 오래 보존됨) 세 측면을 모두 잘 만족했기 때문.</div></details>
+      <details class="q"><summary>Q3. 스톡-플로우 비율이 높다는 것은 무엇을 의미하며, 왜 좋은 화폐의 조건인가?</summary><div class="a"><b>정답:</b> 기존 재고가 연간 생산량보다 압도적으로 크다는 뜻. 수요가 늘어도 공급이 쉽게 늘지 않아 가치가 쉽게 훼손되지 않기 때문에 좋은 화폐의 조건이 된다.</div></details>
+      <details class="q"><summary>Q4. 강의가 "화폐는 집단 환각이 아니다"라고 주장하는 근거는?</summary><div class="a"><b>정답:</b> 비행기가 실제 물리적 기능(양력·추진력)이 있어야 나는 것처럼, 화폐도 실질적인 교환가능성 기능을 충족해야만 작동하며, 아무리 집단적으로 믿어도 스톡-플로우 비율이 낮은 재화는 화폐로 실패한다는 것.</div></details>
+      <details class="q"><summary>Q5. 강의가 "법정화폐(fiat money)"라는 용어를 misnomer라고 지적하는 이유는?</summary><div class="a"><b>정답:</b> 역사적으로 정부가 처음부터 "이것을 화폐로 하라"고 선언해 화폐가 된 사례는 없고, 대부분 원래 금 태환을 약속했던 화폐가 정부의 태환 중단(약속 파기)을 거쳐 지금의 형태가 되었기 때문.</div></details>
+      <details class="q"><summary>Q6. 화폐가 주는 세 가지 경제적 이득은?</summary><div class="a"><b>정답:</b> ① 분업 확대 ② 경제적 계산 용이(가격 개수 대폭 감소) ③ 저축을 유리하게 만들어 시간선호를 낮춤.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>비트코인은 스톡-플로우 비율 개념으로 자주 설명된다. 이 강의의 논리를 비트코인에 적용하면 어떤 강점과 약점이 드러날까?</li>
+        <li>"화폐 공급이 고정돼도 구매력이 오르면 된다"는 주장에 대해, 디플레이션이 부채 상환 부담을 늘리고 소비를 미루게 한다는 주류 경제학의 우려는 어떻게 반박하거나 받아들일 수 있을까?</li>
+        <li>화폐가 시장에서 자생적으로 발생한다는 오스트리아학파의 설명과, 실제로 여러 국가가 세금 납부를 특정 화폐로만 강제해 그 화폐의 수요를 만들어냈다는 역사적 사실은 어떻게 조화될 수 있을까(혹은 조화되지 않을까)?</li>
+        <li>경제적 계산(가격 개수 감소)의 이점은 이해하기 쉽지만, 화폐가 없던 사회에서도 정교한 분업이 이루어진 사례(예: 신용·평판 기반 거래)는 이 논리에 어떤 예외를 제공할까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의의 "경도" 개념은 15강(통화팽창)과 18강(법정화폐 비판, 비트코인)으로 직접 이어지는 핵심 토대입니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>

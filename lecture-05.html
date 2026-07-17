@@ -1,0 +1,185 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 5강 재산권</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 5강 · 재산권</h1>
+    <div class="sub">재산의 정의 · 정당한 취득의 세 가지 방식 · 자기소유권 · 논증윤리</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 5강(<a href="https://www.youtube.com/watch?v=ttDEtDSfRHg" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>재산이란 무엇이며 왜 필요한가</h2>
+      <p class="lead">Why property exists</p>
+      <p>멩거는 재산을 "경제화하는 개인이 자신의 필요를 충족시키기 위해 통제하는 재화 전체"로 정의합니다. 법학적으로는 "어떤 경제재를 배타적으로 통제할 권리"로도 정의됩니다. 강의는 재산이 인위적으로 발명된 제도가 아니라, <b>희소성(수요와 공급의 불일치) 문제에 대한 유일하게 실행 가능한 해법</b>이라고 봅니다. 희소하기 때문에 우리는 가치를 매기고, 가치를 매기기 때문에 소유하고 지키려 한다는 논리입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>재산의 경제적 근거와 갈등 최소화 기능</h2>
+      <p class="lead">Property minimizes conflict</p>
+      <p>내구재를 매번 새로 구하는 것보다 재사용하는 것이 훨씬 경제적입니다. 그리고 무엇보다 중요한 기능은, <b>명확한 소유 규칙이 갈등을 최소화</b>한다는 점입니다. 누구 것인지 불분명하면 다툼이 끊이지 않지만, "이 자원은 이 사람 것"이라는 객관적이고 상호 확인 가능한 경계가 있으면 사람들은 서로의 영역을 침범하지 않고 평화롭게 공존할 수 있습니다. 이런 경계를 사회 구성원이 함께 인정하고 지킬 때 문명이 가능해집니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>재화의 네 가지 유형</h2>
+      <p class="lead">Four categories of property</p>
+      <ul>
+        <li><b>소비재</b> — 경제행위의 최종 목적. 비내구(음식처럼 빠르게 소모) / 내구(집·차처럼 오래 반복 사용) 소비재로 나뉨.</li>
+        <li><b>자본재</b> — 그 자체로 소비되지 않고 다른 재화를 생산하는 데 쓰이는 재화(예: 트랙터).</li>
+        <li><b>화폐재</b> — 소비하거나 생산하지 않고, 다른 재화와 교환하기 위해 취득하는 재화.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>정당한 재산 취득의 세 가지 방식 (로스바드)</h2>
+      <p class="lead">Three legitimate ways to acquire property (Rothbard)</p>
+      <ul>
+        <li>① <b>선점(Homesteading)</b> — 아직 아무도 소유하지 않은 대상을 처음으로 취득.</li>
+        <li>② <b>생산물의 취득</b> — 자신의 재산(토지·자본 등)에서 나온 산출물을 취득.</li>
+        <li>③ <b>자발적 이전</b> — 정당한 소유자가 자유의지로 판매하거나 증여한 것을 취득.</li>
+      </ul>
+      <p>강의는 이 세 가지 외의 방식, 즉 폭력이나 강제로 취득한 것은 <b>정당하지 않은 재산</b>이라고 명확히 구분합니다. "재산은 모두 도둑질"이라는 상대주의적 주장은 이 구분 자체를 무의미하게 만들며, 강의는 이를 인간 문명의 기초를 허무는 위험한 발상으로 비판합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>자기소유권: 인간의 몸에 대한 재산</h2>
+      <p class="lead">Self-ownership</p>
+      <p>인간의 몸(시간, 노동력)도 희소합니다. 이 희소성을 배분하는 방법은 이론적으로 세 가지뿐입니다.</p>
+      <ul>
+        <li><b>자기소유권</b> — 각자가 자신의 몸을 소유하고, 무엇을 할지 스스로 결정.</li>
+        <li><b>공동소유</b> — 사회 전체가 모든 사람의 몸을 공동으로 소유하고 결정.</li>
+        <li><b>노예제</b> — 한 사람이 다른 사람을 소유.</li>
+      </ul>
+      <p>공동소유는 수많은 사람의 의견 불일치를 조율할 방법이 없어 실행 불가능하고, 노예제는 "왜 어떤 사람은 소유하고 어떤 사람은 소유당하는가"라는 비일관성과 끊임없는 저항·갈등을 낳습니다. 그래서 강의는 <b>자기소유권만이 논리적으로 일관되고 평화로운 공존을 가능하게 하는 유일한 해법</b>이라고 결론짓습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>논증윤리와 재산권의 책임</h2>
+      <p class="lead">Argumentation ethics & property as responsibility</p>
+      <p>호페의 논증윤리에 따르면, 누군가와 <b>논쟁을 한다는 행위 자체가 상대의 몸(자기소유권)에 대한 권리를 이미 인정</b>하는 것입니다. "재산권은 정당하지 않다"고 논증하는 사람도, 논증이라는 평화적 설득 행위를 하고 있다는 사실 자체가 상대의 자기소유권을 전제하는 모순에 빠집니다.</p>
+      <p>마지막으로 강의는 사유재산을 특권이 아니라 <b>책임</b>으로 이해해야 한다고 강조합니다. 자원을 잘 활용해 타인에게 봉사하지 못하면 그 재산은 결국 더 잘 활용하는 사람에게 넘어가기 마련이라는 것입니다(6강 자본에서 더 깊이 다룸).</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">재산 (Property)</div><div class="d">경제화하는 개인이 필요 충족을 위해 배타적으로 통제하는 재화.</div></div>
+        <div class="term"><div class="t">선점 (Homesteading)</div><div class="d">아직 소유자가 없는 대상을 처음으로 취득해 정당한 소유권을 얻는 방식.</div></div>
+        <div class="term"><div class="t">자기소유권 (Self-ownership)</div><div class="d">각자가 자신의 몸과 시간을 소유하고 스스로 결정할 권리.</div></div>
+        <div class="term"><div class="t">논증윤리 (Argumentation Ethics)</div><div class="d">논쟁 행위 자체가 상대의 자기소유권을 전제한다는, 호페의 재산권 옹호 논증.</div></div>
+        <div class="term"><div class="t">화폐재 (Monetary Good)</div><div class="d">소비·생산 목적이 아니라 교환을 위해 취득하는 재화.</div></div>
+        <div class="term"><div class="t">소비재 / 자본재</div><div class="d">소비재는 필요를 직접 충족, 자본재는 다른 재화 생산에 쓰이는 재화.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 멩거가 말하는 재산 제도의 근본적 존재 이유는?</summary><div class="a"><b>정답:</b> 재화에 대한 수요가 공급을 초과하는 희소성 문제에 대한 유일하게 실행 가능한 해법이기 때문.</div></details>
+      <details class="q"><summary>Q2. 명확한 재산권 경계가 갈등을 줄이는 이유는?</summary><div class="a"><b>정답:</b> 누구 것인지 객관적이고 상호 확인 가능하게 구분되면, 사람들이 서로의 영역을 침범하지 않고도 평화롭게 공존할 수 있기 때문.</div></details>
+      <details class="q"><summary>Q3. 로스바드가 제시한 정당한 재산 취득 방식 세 가지는?</summary><div class="a"><b>정답:</b> ① 무주물 선점 ② 자기 재산에서 나온 생산물 취득 ③ 정당한 소유자로부터의 자발적 이전(매매·증여).</div></details>
+      <details class="q"><summary>Q4. 인간 몸의 희소성을 배분하는 세 가지 이론적 방식과, 강의가 지지하는 방식은?</summary><div class="a"><b>정답:</b> 자기소유권, 공동소유, 노예제. 강의는 공동소유(실행 불가능)와 노예제(비일관적·갈등 유발)를 배제하고 자기소유권을 유일하게 일관된 해법으로 지지한다.</div></details>
+      <details class="q"><summary>Q5. 논증윤리의 핵심 논리를 한 문장으로 요약하면?</summary><div class="a"><b>정답:</b> 재산권을 부정하는 논쟁을 벌이는 행위 자체가, 상대방의 자기소유권(자기 생각에 대한 권리)을 이미 전제하고 있다는 점에서 자기모순이라는 논리.</div></details>
+      <details class="q"><summary>Q6. 강의가 "재산은 특권이 아니라 책임"이라고 말하는 이유는?</summary><div class="a"><b>정답:</b> 자원을 잘 활용해 타인에게 가치를 제공하지 못하면, 그 재산은 결국 더 효율적으로 사용하는 사람에게 넘어가게 되기 때문.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>"공동소유는 실행 불가능하다"는 주장에 대해, 실제 역사에는 공동체 소유·관리가 성공적으로 작동한 사례(예: 전통적 공유지 관리)도 있다. 이런 사례는 이 주장을 어떻게 반박하거나 보완할 수 있을까?</li>
+        <li>논증윤리는 강력한 논증이지만 비판도 많다. "논쟁에 참여한다"는 사실이 정말 상대의 재산권 전체를 인정하는 것으로 이어질까, 아니면 단지 그 순간의 소통 규범만 인정하는 것일까?</li>
+        <li>무주물 선점이 정당한 취득 방식이라면, 이미 사람이 살고 있었지만 문서화된 소유권이 없던 땅을 "선점"이라고 주장하는 역사적 사례들은 어떻게 평가해야 할까?</li>
+        <li>재산이 "책임"이라는 관점은 상속받은 부에도 똑같이 적용될 수 있을까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의의 재산권 논증은 이후 등장하는 자본(6강), 화폐(10강), 문명(18강) 논의의 전제가 됩니다. 재산권에 대한 자신의 입장을 먼저 정리해두면 뒤 강의들을 더 비판적으로 읽을 수 있습니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>

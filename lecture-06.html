@@ -1,0 +1,175 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 6강 자본</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 6강 · 자본</h1>
+    <div class="sub">생산구조의 연장 · 저축은 자본의 어머니 · 자본의 네 가지 비용 · 시간선호와 자본축적</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 6강(<a href="https://www.youtube.com/watch?v=gvPF39pnqD8" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>자본은 생산 과정을 "길게" 만든다</h2>
+      <p class="lead">Capital lengthens the structure of production</p>
+      <p>맨손으로 물고기를 잡으면 한 마리에 2시간, 낚싯대를 만들어(3시간) 쓰면 한 마리에 4시간이 걸리지만, 그중 대부분은 낚싯대를 만드는 일회성 투자입니다. 낚싯대가 있으면 이후 물고기를 잡는 <b>한계 시간은 오히려 짧아집니다.</b> 배를 만들면 처음엔 일주일이 걸리지만 이후엔 훨씬 빠르고 많이 잡을 수 있습니다. 즉 자본은 <b>전체 생산 과정은 길어지지만, 그 다음 단위를 만드는 한계 시간은 짧아지는</b> 방식으로 생산성을 높입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>저축은 자본의 어머니</h2>
+      <p class="lead">Saving is the mother of capital</p>
+      <p>소비를 미루지 않고는 자본재를 만들 수 없습니다. 어부가 낚싯대를 만드는 동안 먹을 것을 마련해두거나 며칠을 굶어야 하는 것처럼, <b>모든 자본재는 소비될 수도 있었던 자원이 대신 생산에 투입된 것</b>입니다. 강의는 보잉 787 여객기 사례를 듭니다. 첫 상업 비행까지 9년간 수익이 전혀 없었는데, 그동안 엔지니어와 노동자, 설비를 유지할 수 있었던 것은 누군가(투자자)가 소비를 포기하고 그 돈을 계속 묶어두었기 때문입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>자본이 만드는 생산성 격차</h2>
+      <p class="lead">Capital explains the gap between rich and poor</p>
+      <p>맨손 어부는 하루 몇 마리, 낚싯대는 하루 10~30마리, 작은 배는 100~300마리, 대형 트롤선의 노동자 1인당 어획량은 하루 약 5톤에 달합니다. 같은 사람이라도 어떤 자본을 갖췄는지에 따라 생산성이 수천 배 차이 납니다. 강의는 이것이 <b>부자와 빈자의 격차를 설명하는 핵심 요인</b>이라고 봅니다. 자본이 없으면 하루 벌어 하루 먹는 위태로운 생존만 가능하고, 작은 사고 하나로도 파산할 수 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>자본은 특권이 아니라 비용이 드는 책임이다</h2>
+      <p class="lead">The four costs of owning capital</p>
+      <ul>
+        <li><b>지연된 만족</b> — 확실한 현재 소비를 불확실한 미래 산출과 맞바꿔야 함.</li>
+        <li><b>파괴 위험</b> — 자본은 살아있는 유기체처럼 계속 생산에 투입되고 수익을 내야 유지되며, 사고로 쉽게 파괴될 수 있음.</li>
+        <li><b>감가상각</b> — 사용하든 안 하든 시간이 지나며 계속 마모·노후화됨.</li>
+        <li><b>여러 위험</b> — 자연재해, 산업재해뿐 아니라 더 나은 기술의 등장으로 갑자기 무용지물이 될 위험(경제적 진부화).</li>
+      </ul>
+      <p>그래서 강의는 자본이 "하늘에서 떨어진 특권"이 아니라, 계속 유지·관리해야 하는 <b>책임</b>이라고 강조합니다. 자본을 계속 생산적으로 활용해 고객에게 가치를 제공하지 못하면 그 자본은 가치를 잃고 사라집니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>시간선호와 자본축적: 문명의 선순환</h2>
+      <p class="lead">Time preference as the "control knob" of capital formation</p>
+      <p>투자 결정은 "현재 100을 포기하면 미래에 얼마를 받을 것으로 기대하는가"를 <b>시간선호와 불확실성으로 할인</b>해 판단하는 문제입니다. 시간선호가 낮을수록(미래를 덜 할인할수록) 더 많은 투자를 하게 됩니다. 호페는 이 시간선호 하락 과정을 "문명화 과정"이라 부릅니다. 자본이 쌓이면 생산성이 오르고, 생산성이 오르면 생활수준이 개선되며, 생활수준이 개선되면 미래가 더 안정적으로 느껴져 시간선호가 더 낮아지는 <b>선순환</b>이 만들어진다는 것입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>케인지언의 저축 비판에 대한 반박</h2>
+      <p class="lead">Refuting the "paradox of thrift"</p>
+      <p>케인지언 경제학은 저축을 늘리면 소비가 줄어 실업과 불황이 온다는 "절약의 역설"을 주장합니다. 강의는 이를 저축과 투자를 인위적으로 분리해서 생기는 오류라고 반박합니다. <b>소비를 줄이는 것은 한계적으로 저축을 늘리는 것이고, 저축이 늘면 그만큼 대출 가능 자금이 늘어 투자(자본재 생산)가 늘어난다</b>는 것입니다. 즉 식당 종업원 한 명이 덜 필요해지는 대신, 그 저축된 돈이 공장에서 일할 새로운 일자리를 만든다는 논리입니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">자본재 (Capital Good)</div><div class="d">소비되지 않고 다른 재화의 생산에 쓰이는 재산.</div></div>
+        <div class="term"><div class="t">생산구조 (Structure of Production)</div><div class="d">최종 소비재가 나오기까지 거치는 생산 단계들의 연쇄. 자본 투입으로 길어짐.</div></div>
+        <div class="term"><div class="t">한계 생산시간</div><div class="d">자본 투입 이후, 다음 한 단위를 추가 생산하는 데 드는 시간. 자본이 늘면 짧아짐.</div></div>
+        <div class="term"><div class="t">시간선호 (Time Preference)</div><div class="d">현재 소비를 미래 소비보다 선호하는 정도. 낮을수록 자본축적이 촉진됨.</div></div>
+        <div class="term"><div class="t">절약의 역설 (Paradox of Thrift)</div><div class="d">저축 증가가 소비 감소→불황을 부른다는 케인지언 주장. 강의는 저축=투자 재원 증가로 반박.</div></div>
+        <div class="term"><div class="t">경제적 진부화</div><div class="d">더 나은 생산 방식의 등장으로 기존 자본재의 가치가 급락하는 위험.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 자본이 생산 과정 전체를 길게 만들면서도 생산성을 높이는 이유는?</summary><div class="a"><b>정답:</b> 전체 생산 과정(도구 제작 포함)은 길어지지만, 도구가 완성된 뒤 다음 단위를 생산하는 한계 시간은 훨씬 짧아지기 때문.</div></details>
+      <details class="q"><summary>Q2. "저축은 자본의 어머니"라는 말의 의미는?</summary><div class="a"><b>정답:</b> 소비를 미루지 않고는 자본재를 만들 수 없다는 뜻. 모든 자본재는 소비될 수도 있었던 자원이 대신 생산에 투입된 결과다.</div></details>
+      <details class="q"><summary>Q3. 강의가 자본 소유의 비용으로 꼽는 네 가지는?</summary><div class="a"><b>정답:</b> 지연된 만족, 파괴 위험, 감가상각, 경제적 진부화를 포함한 여러 위험.</div></details>
+      <details class="q"><summary>Q4. 호페가 말하는 "문명화 과정"의 선순환 구조는?</summary><div class="a"><b>정답:</b> 시간선호 하락 → 자본축적 증가 → 생산성 상승 → 생활수준 개선 → 시간선호 추가 하락 → 자본축적 추가 증가로 이어지는 순환.</div></details>
+      <details class="q"><summary>Q5. 강의는 케인지언의 "절약의 역설"을 어떻게 반박하는가?</summary><div class="a"><b>정답:</b> 소비 감소는 한계적으로 저축 증가를 의미하고, 저축 증가는 대출 가능 자금과 투자를 늘려 소비재 부문의 일자리 감소를 자본재 부문의 일자리 증가로 상쇄한다는 논리.</div></details>
+      <details class="q"><summary>Q6. 자본이 "특권이 아니라 책임"이라는 말의 의미는?</summary><div class="a"><b>정답:</b> 자본을 소유했다고 저절로 부가 유지되는 것이 아니라, 계속 고객에게 가치를 제공하도록 생산적으로 관리하지 않으면 자본이 가치를 잃고 사라지기 때문.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>저축과 투자가 항상 자동으로 연결된다는 주장에 동의하는가? 은행이 대출을 꺼리거나 불확실성이 매우 클 때도 이 연결이 항상 성립할까?</li>
+        <li>"자본이 부와 빈곤의 격차를 설명하는 핵심 요인"이라는 주장은 제도(재산권, 법치)나 지리적 요인 등 다른 설명과 어떻게 종합될 수 있을까?</li>
+        <li>강의는 자본 소유를 "책임"으로 규정하는데, 상속된 자본이나 독점적 지위에서 나온 자본에도 이 논리가 똑같이 적용될까?</li>
+        <li>시간선호가 낮아지는 "문명화 과정"이 항상 일방향으로 진행되는 것은 아니다. 어떤 사회적·경제적 충격이 시간선호를 다시 높일 수 있을까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의에서 다룬 "저축=투자 재원"이라는 논리는 10강(화폐)의 시간선호 논의, 15강(통화팽창) 논의와 직접 연결됩니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>

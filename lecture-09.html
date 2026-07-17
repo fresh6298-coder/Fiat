@@ -1,0 +1,169 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 9강 무역</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 9강 · 무역</h1>
+    <div class="sub">합의 vs 강압 · 절대우위와 비교우위 · 시장의 규모 · 연필 이야기</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 9강(<a href="https://www.youtube.com/watch?v=LMB_5j2EIlc" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>두 가지 상호작용 방식: 합의와 강압</h2>
+      <p class="lead">Consent vs. coercion</p>
+      <p>사람과 사람이 상호작용하는 방식은 <b>합의(consent)</b>와 <b>강압(coercion)</b> 두 가지뿐입니다. 합의된 거래(무역)는 양쪽 모두 이득을 기대하기 때문에 이루어지는 <b>포지티브섬 게임</b>입니다. 반대로 강압은 한쪽이 손해를 보게 되는 제로섬 혹은 마이너스섬 상호작용입니다(도둑맞은 물건은 훔친 사람보다 원래 주인에게 더 가치 있는 경우가 많기 때문). 강의는 무인도에 표류한 로빈슨 크루소와 프라이데이의 예를 들어, 두 사람이 서로 싸우거나 노예로 삼는 대신 협력을 선택하는 것이 왜 압도적으로 유리한지 설명합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>무역이 양쪽 모두에게 이득인 이유 (1): 주관적 가치와 한계효용</h2>
+      <p class="lead">Subjective value and diminishing marginal utility as drivers of trade</p>
+      <p>가치가 주관적이기 때문에, 두 사람이 자발적으로 재화를 교환한다면 각자 <b>자신이 내준 것보다 받은 것을 더 가치 있게 여긴다</b>는 것을 알 수 있습니다. 또한 같은 재화라도 이미 많이 가진 사람에게는 한계가치가 낮으므로(2강), 사과가 많은 사람과 오렌지가 많은 사람이 서로 교환하면 둘 다 이득을 봅니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>무역이 양쪽 모두에게 이득인 이유 (2): 절대우위와 비교우위</h2>
+      <p class="lead">Absolute and comparative advantage</p>
+      <p>크루소가 물고기를 잘 잡고 프라이데이가 토끼를 잘 잡는다면(절대우위), 각자 잘하는 일에 특화해 교환하면 둘 다 더 많이 먹을 수 있습니다. 그런데 강의가 더 강조하는 것은 <b>비교우위</b> 개념입니다. 크루소가 물고기와 토끼 사냥 모두에서 프라이데이보다 뛰어나더라도, <b>두 사람의 기회비용(교환비율)이 다르기만 하면</b> 각자 상대적으로 더 잘하는(기회비용이 낮은) 일에 집중해 교환할 때 전체 생산량이 늘어나 둘 다 이득을 봅니다. 즉 한쪽이 모든 면에서 우월해도 무역의 이유는 사라지지 않습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>분업과 특화, 그리고 시장의 규모</h2>
+      <p class="lead">Specialization and the extent of the market</p>
+      <p>한 가지 일에 집중하면 그 일에 점점 더 능숙해지는 효과도 있습니다. 그래서 강의는 사회가 클수록(참여자가 많을수록) 더 세밀한 분업이 가능해지고, 그만큼 더 다양하고 정교한 재화를 만들 수 있다고 설명합니다. 고립된 소수는 생존에 급급하지만, 수백만·수십억 명이 연결된 시장에서는 각자 아주 좁은 영역에 특화해도 풍요로운 생활이 가능해집니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>"나는 연필 한 자루" — 시장이 만드는 협력의 규모</h2>
+      <p class="lead">I, Pencil</p>
+      <p>강의는 레너드 리드의 유명한 에세이 "나는 연필"(밀턴 프리드먼이 즐겨 인용)을 소개합니다. 연필처럼 단순해 보이는 물건도, 나무를 벤 사람, 채굴한 사람, 고무를 재배한 사람 등 <b>서로 만난 적도 없고 언어도 다른 수천 명의 협력</b> 없이는 만들 수 없다는 것입니다. 이 협력을 지시하는 중앙 사령탑은 없으며, 가격 시스템이 이들을 자연스럽게 조율합니다. 그 덕분에 우리는 단 몇 초의 노동만으로 연필 한 자루를 살 수 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>무역 장벽과 고립의 대가</h2>
+      <p class="lead">Trade barriers impoverish</p>
+      <p>강의는 무역이 적은 나라일수록 가난한 경향이 있다는 점을 지적하며, 미국의 50개 주가 자유롭게 교역하는 거대한 단일 시장이라는 점이 미국 번영의 핵심 요인 중 하나라고 봅니다. 반면 무역 장벽이 많았던 지역은 그만큼 분업의 이익을 누리지 못해 상대적으로 정체되었다는 것이 강의의 주장입니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">포지티브섬 / 제로섬</div><div class="d">양쪽 모두 이득을 보는 상호작용(무역) vs 한쪽의 이득이 다른 쪽의 손실인 상호작용(강압).</div></div>
+        <div class="term"><div class="t">절대우위 (Absolute Advantage)</div><div class="d">특정 재화를 다른 사람보다 더 적은 자원으로 생산할 수 있는 능력.</div></div>
+        <div class="term"><div class="t">비교우위 (Comparative Advantage)</div><div class="d">기회비용이 상대적으로 더 낮은 재화에 특화하는 것. 절대적으로 열등해도 무역의 이유가 됨.</div></div>
+        <div class="term"><div class="t">기회비용 (Opportunity Cost)</div><div class="d">한 재화를 생산하기 위해 포기해야 하는 다른 재화의 양.</div></div>
+        <div class="term"><div class="t">시장의 규모 (Extent of the Market)</div><div class="d">거래에 참여하는 사람의 수. 클수록 더 세밀한 분업과 특화가 가능해짐.</div></div>
+        <div class="term"><div class="t">나는 연필 (I, Pencil)</div><div class="d">단순한 상품도 수천 명의 익명 협력으로 만들어진다는 것을 보여주는 유명한 에세이.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 자발적 무역이 "포지티브섬 게임"인 이유는?</summary><div class="a"><b>정답:</b> 두 사람이 자발적으로 교환한다면, 각자 자신이 내준 것보다 받은 것을 더 가치 있게 여긴다는 뜻이므로 양쪽 모두 이득을 본다.</div></details>
+      <details class="q"><summary>Q2. 절대우위와 비교우위의 차이는?</summary><div class="a"><b>정답:</b> 절대우위는 특정 재화를 더 적은 자원으로 만들 수 있는 능력이고, 비교우위는 기회비용이 상대적으로 더 낮은 재화에 특화하는 것. 한쪽이 모든 면에서 절대적으로 우월해도 비교우위 차이만 있으면 무역이 둘 다에게 이득이 된다.</div></details>
+      <details class="q"><summary>Q3. 시장 참여자가 늘어날수록 분업이 더 정교해지는 이유는?</summary><div class="a"><b>정답:</b> 참여자가 많을수록 각자 아주 좁은 영역에 특화해도 그 특화된 생산물을 교환할 상대를 충분히 찾을 수 있기 때문에, 더 세밀하고 정교한 분업이 가능해진다.</div></details>
+      <details class="q"><summary>Q4. "나는 연필" 에세이가 보여주려는 핵심은?</summary><div class="a"><b>정답:</b> 단순한 상품도 서로 만난 적 없는 수천 명의 협력이 필요하며, 이 협력은 중앙의 지시 없이 가격 시스템을 통해 자연스럽게 조율된다는 것.</div></details>
+      <details class="q"><summary>Q5. 강의가 무역 장벽이 많은 지역을 가난하다고 설명하는 이유는?</summary><div class="a"><b>정답:</b> 무역 장벽이 분업과 특화의 이익을 제한해, 더 많은 사람과 교역할 때 얻을 수 있는 생산성 향상을 누리지 못하기 때문.</div></details>
+      <details class="q"><summary>Q6. 로빈슨 크루소와 프라이데이 사례가 보여주는 핵심 교훈은?</summary><div class="a"><b>정답:</b> 서로 싸우거나 노예로 삼는 것보다, 각자 기회비용이 낮은 일에 특화해 교환하는 협력이 압도적으로 더 큰 이득을 지속적으로 가져다준다는 것.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>비교우위 이론은 국가 간 무역에도 자주 적용된다. 그런데 한 국가 안에서 특정 산업이 쇠퇴해 일자리를 잃는 사람들에게는 이 이론이 어떤 위안이 될 수 있을까?</li>
+        <li>"나는 연필" 에세이는 가격 시스템의 조율 능력을 강조한다. 그런데 가격에 반영되지 않는 사회적 비용(환경오염 등)은 이 조율 메커니즘에서 어떻게 다뤄질 수 있을까?</li>
+        <li>미국의 자유무역 지대와 유럽의 (역사적) 무역 장벽을 비교하는 논리는 흥미롭지만, 두 지역의 번영 격차에는 다른 요인(언어, 문화, 전쟁 역사)도 작용했을 수 있다. 이를 어떻게 분리해서 평가할 수 있을까?</li>
+        <li>강압(coercion)이 항상 마이너스섬이라는 주장에 대해, 예외적으로 강압이 자원 배분을 개선하는 경우(예: 공공재 제공을 위한 과세)는 없을까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의의 비교우위 논리는 10강(화폐)에서 "왜 우리는 하나의 화폐로 수렴하는가"를 이해하는 데도 중요한 배경이 됩니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>

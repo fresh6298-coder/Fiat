@@ -1,0 +1,169 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 11강 시장</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 11강 · 시장</h1>
+    <div class="sub">수요·공급 곡선 · 균형은 상태가 아니라 과정 · 생산재 가격의 원천 · 소비자 주권</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 11강(<a href="https://www.youtube.com/watch?v=X_ednX6xAgw" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>시장경제란 무엇인가</h2>
+      <p class="lead">Markets as large-scale voluntary cooperation</p>
+      <p>시장경제는 강제하는 중앙 권위 없이, 사람들이 자발적으로 대규모 협력을 하며 서로에게 재화와 서비스를 제공하는 사회 질서입니다. 화폐가 있어야 이 협력이 큰 규모로 가능해지며(10강), 시장에 참여하는 것은 고립되어 혼자 생존을 도모하는 것보다 압도적으로 유리합니다. 강의의 핵심 통찰은, 시장에서는 <b>자신의 필요를 채우려면 먼저 남의 필요를 채워야 한다</b>는 점입니다. 이 자기이익의 논리가 사람들을 평화롭고 협조적으로 행동하게 만들고, 그것이 곧 문명입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>수요곡선: 가치 척도에서 수요곡선까지</h2>
+      <p class="lead">From value scale to demand curve</p>
+      <p>개인은 각 재화의 한계 단위에 얼마까지 지불할 의사가 있는지 순위를 매길 수 있습니다(한계효용 체감, 2강). 이를 가격대별로 정리하면 <b>수요곡선</b>이 나오는데, 가격이 오를수록 수요량이 줄어드는 <b>우하향</b> 곡선입니다(수요의 법칙). 개별 수요를 모두 합치면 <b>시장 수요곡선</b>이 됩니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>공급곡선과 균형</h2>
+      <p class="lead">Supply curve and market equilibrium</p>
+      <p>생산자는 가격이 높을수록 더 많이 생산할 유인이 생기므로, <b>공급곡선은 우상향</b>합니다(공급의 법칙). 수요곡선과 공급곡선이 만나는 지점이 <b>균형</b>이며, 그 가격에서만 공급량과 수요량이 일치합니다. 가격이 균형보다 높게 고정되면(예: 정부가 최저가격을 강제) <b>공급 과잉(잉여)</b>이 생기고, 낮게 고정되면 <b>공급 부족</b>이 생깁니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>균형은 "상태"가 아니라 "과정"이다</h2>
+      <p class="lead">Equilibrium as an ongoing equilibrating process</p>
+      <p>강의는 균형을 고정된 종착점이 아니라, <b>생산자들이 매일 시행착오를 거치며 가격을 조정해가는 과정</b>으로 이해하라고 강조합니다. 가격을 너무 높게 매기면 재고가 쌓여 가격을 내리고, 너무 낮게 매기면 품절이 나서 가격을 올립니다. 게다가 수요·공급 곡선 자체도 끊임없이 변하기 때문에(선호 변화, 소득 변화, 대체재·보완재 가격 변화, 생산비용 변화, 신기술 등), 시장은 고정된 균형점에 도달해 머무는 것이 아니라 <b>끊임없는 균형화 과정(equilibrating process)</b> 속에 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>생산재의 가격은 소비자의 평가에서 나온다</h2>
+      <p class="lead">Producer goods are priced by derived (consumer) demand</p>
+      <p>소비재는 소비자 자신의 효용을 기준으로 가치를 매기지만, 자본·노동 같은 생산재는 다릅니다. 노동자의 임금이나 자본의 수익은 <b>그 생산재가 최종적으로 만들어내는 소비재를 소비자가 얼마나 가치 있게 여기는가에서 파생</b>됩니다. 그래서 생산자가 자기 마음대로 임금이나 가격을 정할 수 없고, 시장(소비자)이 지시하는 가치에서 벗어난 가격을 고집하는 기업은 결국 도태됩니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>소비자 주권</h2>
+      <p class="lead">Consumer sovereignty</p>
+      <p>흔히 자본가가 사회를 착취한다고 여겨지지만, 강의는 오히려 <b>소비자가 자본가를 통제</b>한다고 봅니다. 자본가는 자원을 소비자가 원하는 방향으로 활용해야만 그 자본을 유지할 수 있고, 그렇지 못하면 자본은 가치를 잃고 사라집니다(6강). 결국 시장경제에서 가격은 임의로 정해지는 숫자가 아니라, 소비자의 주관적 평가가 생산 과정 전체로 전달되는 신호라는 것이 이 강의의 결론입니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">수요의 법칙 (Law of Demand)</div><div class="d">가격이 오르면 수요량이 줄어드는 관계. 수요곡선은 우하향.</div></div>
+        <div class="term"><div class="t">공급의 법칙 (Law of Supply)</div><div class="d">가격이 오르면 공급량이 늘어나는 관계. 공급곡선은 우상향.</div></div>
+        <div class="term"><div class="t">균형 (Equilibrium)</div><div class="d">수요곡선과 공급곡선이 만나 수요량=공급량이 되는 지점. 고정된 상태가 아니라 지속적 조정 과정.</div></div>
+        <div class="term"><div class="t">잉여 / 부족 (Surplus / Shortage)</div><div class="d">가격이 균형보다 높으면 잉여, 낮으면 부족이 발생.</div></div>
+        <div class="term"><div class="t">파생 수요 (Derived Demand)</div><div class="d">생산재(노동·자본)의 가치가 그것으로 만든 소비재에 대한 소비자 평가에서 파생되는 것.</div></div>
+        <div class="term"><div class="t">소비자 주권 (Consumer Sovereignty)</div><div class="d">궁극적으로 소비자의 주관적 평가가 생산 전반의 가격과 자원 배분을 결정한다는 개념.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 시장경제에서 "자기이익이 협력을 이끈다"는 말의 의미는?</summary><div class="a"><b>정답:</b> 시장에서는 자신의 필요를 채우려면 먼저 남의 필요를 채워야 하기 때문에, 이기심이 오히려 사람들을 평화롭고 협조적으로 행동하게 만든다는 것.</div></details>
+      <details class="q"><summary>Q2. 수요곡선과 공급곡선이 각각 우하향·우상향하는 이유는?</summary><div class="a"><b>정답:</b> 수요는 가격이 오를수록 줄어들고(한계효용 체감), 공급은 가격이 오를수록 생산 유인이 커져 늘어나기 때문.</div></details>
+      <details class="q"><summary>Q3. 가격이 균형보다 높게 고정되면 어떤 일이 일어나는가?</summary><div class="a"><b>정답:</b> 공급량이 수요량을 초과해 잉여(팔리지 않는 재고)가 발생한다.</div></details>
+      <details class="q"><summary>Q4. 강의가 균형을 "상태가 아니라 과정"이라고 말하는 이유는?</summary><div class="a"><b>정답:</b> 생산자가 가격을 시행착오로 계속 조정하고, 수요·공급 곡선 자체도 선호·소득·비용 변화로 끊임없이 이동하기 때문에, 시장은 고정된 균형에 도달해 멈추는 게 아니라 지속적인 조정 과정에 있다는 것.</div></details>
+      <details class="q"><summary>Q5. 노동자의 임금이 생산재(파생) 시장에서 결정되는 방식은?</summary><div class="a"><b>정답:</b> 노동자 자신의 효용이 아니라, 그 노동이 만들어내는 최종 소비재를 소비자가 얼마나 가치 있게 여기는지에서 파생되어 결정된다.</div></details>
+      <details class="q"><summary>Q6. "소비자 주권"이 뜻하는 바는?</summary><div class="a"><b>정답:</b> 자본가가 사회를 지배하는 것이 아니라, 소비자의 주관적 평가가 궁극적으로 생산 전반의 가격과 자원 배분을 결정한다는 것.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>수요·공급 곡선은 이상화된 모형이다. 실제 시장에서는 가격 정보가 불완전하거나 지연되는 경우가 많은데, 이 모형은 그런 현실을 얼마나 잘 반영할까?</li>
+        <li>"소비자 주권"이 성립하려면 소비자가 합리적으로 정보를 갖고 선택한다는 전제가 필요하다. 광고나 정보 비대칭이 심한 시장에서도 이 개념이 그대로 적용될 수 있을까?</li>
+        <li>최저임금이나 가격 상한제 같은 정책은 이 강의의 논리로 보면 항상 잉여나 부족을 낳는다. 그럼에도 이런 정책이 유지되는 정치적·사회적 이유는 무엇일까?</li>
+        <li>파생 수요 개념은 노동시장에도 적용된다. 그렇다면 독점적 지위를 가진 소수 기업이 노동 수요를 좌우하는 "수요독점(monopsony)" 상황에서는 이 논리가 어떻게 달라질까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의는 4강(노동)의 한계수입생산 논의를 시장 전체로 확장한 것입니다. 두 강의를 함께 복습하면 "가격이 어떻게 정해지는가"에 대한 오스트리아학파의 전체 그림이 잡힙니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>
