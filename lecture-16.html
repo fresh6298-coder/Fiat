@@ -1,0 +1,168 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 16강 폭력</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 16강 · 폭력</h1>
+    <div class="sub">생산 대 약탈 · 폭력의 기회비용 · 폭력의 독점 · 교역과 평화</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 16강(<a href="https://www.youtube.com/watch?v=tDrby2tL_AU" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>경제행위와 폭력의 근본적 대립</h2>
+      <p class="lead">Voluntary exchange vs. the initiation of force</p>
+      <p>5강에서 다룬 재산권 논의로 돌아가면, 경제적 교환은 <b>자발적 동의</b>를 전제로 합니다. 폭력(강압적 힘의 행사)은 이 동의를 무너뜨리는 행위로, 한쪽이 상대의 재산이나 신체에 대해 동의 없이 힘을 행사하는 것입니다. 강의는 폭력을 도덕적으로 정의하기 전에, <b>경제적으로</b> 정의합니다 — 폭력은 자원을 만들어내는 대신 이미 만들어진 것을 강제로 빼앗는 행위이므로, 부를 창출하지 않고 단지 이전시킬 뿐입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>생산 대 약탈: 제로섬과 포지티브섬</h2>
+      <p class="lead">Production (positive-sum) vs. predation (zero-sum)</p>
+      <p>자발적 교환은 양쪽 모두가 이득을 보는 <b>포지티브섬(positive-sum)</b> 게임입니다(9강, 무역). 반대로 약탈은 한쪽이 얻는 만큼 다른 쪽이 잃는 <b>제로섬(zero-sum)</b>, 혹은 자원을 파괴하면서 얻는 것이 잃는 것보다 적은 <b>네거티브섬(negative-sum)</b> 게임입니다. 인류 역사에서 부를 늘리는 두 가지 전략 — 생산과 약탈 — 중, 생산만이 지속가능한 번영을 만든다는 것이 강의의 핵심 대비입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>폭력의 경제적 비용: 방어 자원의 전용</h2>
+      <p class="lead">The opportunity cost of violence</p>
+      <p>폭력의 위협이 존재하는 사회에서는 개인과 기업이 생산적 활동 대신 <b>방어(경비, 보안, 무기, 요새)</b>에 자원을 돌려야 합니다. 이렇게 방어에 투입된 자원은 우회생산(12강)이나 자본축적에 쓰였다면 만들어낼 수 있었던 부를 만들어내지 못합니다. 강의는 이를 "폭력의 그림자 비용"이라 부르며, 폭력의 실제 발생 여부와 무관하게 그 위협 자체가 경제 전체의 생산성을 갉아먹는다고 설명합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>국가와 폭력의 독점</h2>
+      <p class="lead">The state's monopoly on (legitimate) violence (Weber)</p>
+      <p>사회학자 막스 베버는 근대 국가를 "일정한 영토 내에서 합법적 물리력 행사를 독점하는 조직"으로 정의했습니다. 국가는 세금 징수, 법 집행, 국방 등을 통해 폭력을 행사하지만 그것이 "합법"으로 인정받는 이유는 순전히 <b>국가라는 지위</b> 때문입니다. 강의는 이 정의를 소개하며, 동일한 행위(재산의 강제적 이전)가 개인이 하면 절도지만 국가가 하면 세금이 되는 개념적 긴장을 짚습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>폭력은 정말 역사적으로 감소했는가</h2>
+      <p class="lead">Debating the "decline of violence" narrative</p>
+      <p>일부 학자(스티븐 핑커 등)는 인류 역사에서 폭력이 장기적으로 감소해왔다고 주장합니다. 강의는 이 주장에 신중한 태도를 취하며, 폭력의 형태가 노골적인 신체적 폭력에서 <b>제도화된, 눈에 덜 띄는 형태(과세, 규제, 통화팽창을 통한 부의 이전 등)</b>로 옮겨갔을 가능성을 제기합니다. 즉 폭력의 총량이 줄었다기보다, 13강에서 다룬 낮은 시간선호 사회일수록 폭력을 더 정교하고 은밀한 형태로 제도화했을 수 있다는 것입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>자유무역과 평화</h2>
+      <p class="lead">"When goods don't cross borders, soldiers will"</p>
+      <p>9강(무역)에서 다룬 자발적 교역의 논리는 평화와도 직결됩니다. 서로 무역으로 이득을 보는 두 집단은 상대를 파괴할 경제적 유인이 줄어듭니다 — 상대를 정복하면 얻는 것보다, 상대와 계속 거래하는 편이 더 큰 이득이기 때문입니다. 고전적 자유주의 전통의 격언처럼 "재화가 국경을 넘지 못하면 군대가 넘는다"는 통찰이, 자유무역을 단순한 경제 정책이 아니라 <b>평화를 유지하는 제도적 장치</b>로 보게 만듭니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">약탈 (Predation)</div><div class="d">생산 없이 이미 만들어진 자원을 강제로 빼앗는 행위. 제로섬 또는 네거티브섬.</div></div>
+        <div class="term"><div class="t">포지티브섬 / 제로섬 (Positive-sum / Zero-sum)</div><div class="d">자발적 교환은 양쪽 모두 이득을 보는 포지티브섬, 약탈은 한쪽만 득을 보는 제로섬 게임.</div></div>
+        <div class="term"><div class="t">폭력의 그림자 비용 (Shadow Cost of Violence)</div><div class="d">폭력의 위협 때문에 생산 대신 방어에 자원이 전용되어 발생하는 기회비용.</div></div>
+        <div class="term"><div class="t">폭력의 독점 (Monopoly on Violence, 베버)</div><div class="d">일정 영토 내에서 합법적 물리력 행사를 독점하는 근대 국가의 특성.</div></div>
+        <div class="term"><div class="t">폭력의 제도화 (Institutionalization of Violence)</div><div class="d">노골적 폭력이 과세·규제·통화팽창 등 눈에 덜 띄는 형태로 대체되었을 가능성.</div></div>
+        <div class="term"><div class="t">자유무역과 평화 (Free Trade and Peace)</div><div class="d">교역으로 상호 이득을 보는 집단일수록 서로를 정복할 경제적 유인이 줄어든다는 고전적 통찰.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 강의가 폭력을 경제적으로 정의하는 방식은?</summary><div class="a"><b>정답:</b> 폭력은 새로운 자원을 만들어내지 않고, 이미 만들어진 자원을 동의 없이 강제로 이전시키는 행위로 정의된다.</div></details>
+      <details class="q"><summary>Q2. 생산과 약탈이 각각 포지티브섬·제로섬으로 구분되는 이유는?</summary><div class="a"><b>정답:</b> 자발적 교환은 양쪽 모두 이득을 보는 포지티브섬이지만, 약탈은 한쪽이 얻는 만큼 다른 쪽이 잃거나 자원이 파괴되는 제로섬/네거티브섬 게임이기 때문.</div></details>
+      <details class="q"><summary>Q3. "폭력의 그림자 비용"이 뜻하는 바는?</summary><div class="a"><b>정답:</b> 폭력이 실제로 발생하지 않아도, 그 위협 때문에 생산적 활동 대신 방어(보안·무기 등)에 자원이 전용되어 경제 전체의 생산성이 낮아지는 기회비용.</div></details>
+      <details class="q"><summary>Q4. 베버가 정의한 근대 국가의 특징은?</summary><div class="a"><b>정답:</b> 일정한 영토 내에서 합법적인 물리력(폭력) 행사를 독점하는 조직이라는 것.</div></details>
+      <details class="q"><summary>Q5. 강의가 "폭력이 역사적으로 감소했다"는 주장에 신중한 이유는?</summary><div class="a"><b>정답:</b> 폭력의 총량이 줄었다기보다, 노골적인 신체적 폭력이 과세·규제·통화팽창 같은 더 정교하고 눈에 덜 띄는 제도화된 형태로 옮겨갔을 가능성이 있기 때문.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>동일한 행위(재산의 강제적 이전)가 개인이 하면 절도이고 국가가 하면 합법적 과세가 되는 것은 어떤 논리로 정당화되는가? 그 정당화가 항상 설득력이 있는가?</li>
+        <li>"폭력이 제도화되어 눈에 덜 띄는 형태로 옮겨갔을 뿐"이라는 주장은 반증하기 어려운 가설처럼 보인다. 이를 검증할 수 있는 방법이 있을까?</li>
+        <li>자유무역이 평화를 촉진한다는 논리는 20세기 두 차례의 세계대전 이전에도 널리 받아들여졌지만 전쟁을 막지 못했다. 이 이론의 한계는 무엇일까?</li>
+        <li>방어에 투입되는 자원(군비, 보안)이 모두 순수한 낭비인가, 아니면 그 자체로 재산권을 지키는 데 필요한 최소한의 생산적 투자로 볼 수 있는가?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의는 5강(재산권)에서 다룬 "재산권의 경제적 근거"를 국가·전쟁 차원으로 확장한 것입니다. 다음 17강(국방)에서는 이 폭력의 독점이라는 개념이 국방 서비스의 공급 문제로 구체화됩니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>
