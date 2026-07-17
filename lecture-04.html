@@ -1,0 +1,271 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 4강 노동</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --card: #ffffff;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --series-1: #2a78d6;
+    --series-1-soft: #cde2fb;
+    --good: #006300;
+    --warning: #b06a00;
+    --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10);
+    --accent: #2a78d6;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --card: #1f1f1e;
+      --text-primary: #ffffff;
+      --text-secondary: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --series-1: #3987e5;
+      --series-1-soft: #16324f;
+      --good: #0ca30c;
+      --warning: #fab219;
+      --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10);
+      --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src {
+    margin-top: 8px; font-size: 12px; color: var(--muted);
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 12px;
+  }
+  header.top .src a { color: var(--accent); }
+
+  .tabs {
+    display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto;
+    position: sticky; top: 0; z-index: 40;
+    background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary);
+    white-space: nowrap; flex: 0 0 auto;
+  }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+
+  details.q {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 10px;
+  }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+
+  .quote {
+    border-left: 3px solid var(--accent); padding: 4px 0 4px 12px;
+    font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0;
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 4강 · 노동</h1>
+    <div class="sub">임금노동과 한계수입생산 · 실업의 원인 · 케인스의 예측 비판 · 착취론 반박</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 4강(약 46분 분량, <a href="https://www.youtube.com/watch?v=5GMf3wA0ZqI" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>노동이란 무엇인가</h2>
+      <p class="lead">Defining labor</p>
+      <p>미제스는 노동을 <b>"몸을 목적 달성의 수단으로 사용하는 것"</b>으로 정의합니다. 노동은 정의상 <b>음(-)의 효용</b>을 갖습니다. 그 자체로 하고 싶어서 하는 게 아니라, 결과물(산출)이 그 불편함보다 가치 있기 때문에 하는 것입니다. 어린아이는 미래를 생각하지 못해 즉각적 만족만 추구하지만, 성장하면서 "지금은 하기 싫어도 나중을 위해 하는" 노동의 개념을 이해하게 됩니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>생산과 재화의 구분</h2>
+      <p class="lead">Production, consumer goods, producer goods</p>
+      <p>미제스는 생산을 <b>"이성의 설계에 따라 주어진 것을 변형하는 것"</b>이라 정의합니다. 여기서 중요한 구분이 나옵니다.</p>
+      <ul>
+        <li><b>소비재(Consumer Goods)</b> — 인간의 필요를 직접 충족시키는, 생산의 최종 목적이 되는 재화.</li>
+        <li><b>생산재(Producer Goods, 자본재)</b> — 그 자체를 소비하려는 게 아니라, 소비재를 만드는 데 쓰이는 재화. 자본재가 존재하려면 반드시 소비를 희생해야 한다는 것이 핵심 포인트입니다. 세상의 모든 자본재는 원래 소비될 수도 있었지만 대신 생산에 투입된 것입니다.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>고용의 산수: 한계수입생산</h2>
+      <p class="lead">Marginal revenue product and hiring decisions</p>
+      <p>고용주는 노동자를 그 자체로 원해서가 아니라, 노동자가 제공하는 가치 때문에 고용합니다. 그래서 <b>임금이 한계수입생산(marginal revenue product)보다 낮을 때만</b> 고용이 이루어집니다.</p>
+      <p>한계수입생산 = (그 노동자를 추가로 고용해서 늘어나는 산출량) × (그 산출물의 가격) − (추가로 드는 원재료비). 예를 들어 샌드위치 가게에서 직원을 한 명 더 고용해 하루 20개를 더 만들 수 있고, 샌드위치 한 개가 5달러, 재료비가 2달러라면, 이 직원의 한계수입생산은 20 × (5−2) = 60달러입니다. 이 직원에게 하루 60달러 미만을 주고 고용할 수 있다면 고용하고, 그 이상을 요구하면 고용하지 않습니다. 이 계산을 하지 않는 사업은 결국 도태된다고 강의는 강조합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>노동의 비특정성과 임금 상승 추세</h2>
+      <p class="lead">Labor's non-specific character</p>
+      <p>기계는 특정 용도에 고정되어 있어 다른 일에 재배치하기 어렵지만, <b>인간의 노동은 다양한 용도로 재배치할 수 있다(non-specific)</b>는 특징이 있습니다. 이 유연성 때문에 인간 노동에 대한 수요는 항상 존재하며, 산업혁명 이후 화석연료 등 막대한 에너지를 생산 과정에 투입하면서 노동생산성이 계속 상승해왔고, 그 결과 임금도 장기적으로 계속 상승해왔다는 것이 강의의 주장입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>실업은 시장경제의 자연스러운 결과가 아니다</h2>
+      <p class="lead">Unemployment: inflation and minimum wage</p>
+      <p>강의는 실업을 자유시장의 필연적 산물이 아니라, <b>인플레이션과 최저임금법 같은 개입의 산물</b>로 봅니다.</p>
+      <ul>
+        <li><b>인플레이션 경로</b>: 통화량이 늘어 물가가 오르면 노동자는 임금 인상을 요구하지만, 노동자의 실제 생산성은 오르지 않았다. 기업과 노동자 모두 화폐가치 하락으로 실질적으로 가난해진 상태이므로, 기업은 오른 임금을 감당하지 못해 결국 해고하거나 폐업하게 된다.</li>
+        <li><b>경기순환 경로</b>: 신용팽창으로 인한 호황기에 지속 불가능한 투자가 이루어지고, 신용이 긴축되면 특정 업종 전체에서 동시다발적 파산과 대량 해고가 발생한다(2000년 닷컴버블, 2008년 금융위기 사례).</li>
+        <li><b>최저임금법</b>: 정치적으로는 "임금을 강제로 올려 노동자를 돕겠다"는 취지지만, 실제로는 <b>생산성이 낮은 노동자의 고용 자체를 불법화</b>하는 결과를 낳는다(1강에서 다룬 논리와 동일).</li>
+      </ul>
+      <p>강의는 스위스 사례를 듭니다. 1970년대까지 금본위제를 유지한 스위스는 물가가 안정적이고 실업률도 매우 낮았지만, 금본위제를 포기한 이후 다른 나라들처럼 주기적인 경기침체와 실업의 물결을 겪기 시작했다고 설명합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>노동은 사라질 것인가? 케인스의 예측 비판</h2>
+      <p class="lead">Will work ever end?</p>
+      <p>케인스는 생산성이 계속 늘어나면 2030년쯤엔 주 15시간만 일해도 충분할 것이라고 예측했습니다. 강의는 이를 반박합니다. <b>경제 문제는 인간의 조건에서 영원히 사라지지 않는다</b>는 것이 핵심 논거입니다. 시간은 항상 유한하고, 인간의 이성은 항상 "더 나은 미래"를 상상할 수 있기 때문에, 아무리 풍요로워져도 현재와 미래 사이의 선택은 계속 존재하며, 그래서 노동(생산 활동)에 대한 유인도 사라지지 않는다는 것입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">7</span>노동은 착취인가? 노동가치설에 대한 반박</h2>
+      <p class="lead">Is labor exploitation?</p>
+      <p>마르크스주의는 노동가치설을 전제로, 노동자가 만든 가치를 자본가가 부당하게 가져간다는 착취론을 폅니다. 강의는 이를 <b>자본이 생산성에 기여하는 몫을 무시한 논리</b>라고 비판합니다.</p>
+      <p>예시: 택시기사가 "자본가에게 착취당하기 싫다"며 자동차 없이 사람을 등에 업고 나른다면 생산성은 극히 낮아집니다. 자본가가 자동차(자본재)를 제공하는 것은 생산성 향상에 실질적으로 기여하는 일입니다. 그리고 그 자본재는 자본가가 <b>소비를 미루고 희생한 결과물</b>입니다(세상의 모든 자본은 소비될 수도 있었지만 대신 생산에 투입된 것이라는 3번 항목의 논리와 연결됨). 노동자와 자본가의 거래는 각자 부족한 것(노동력 vs 자본)을 서로 보완하는 상호 이익 거래라는 것이 강의의 결론이며, 사유재산을 폐지한 체제에서는 오히려 자본 축적 유인이 사라져 기근과 빈곤이 뒤따랐다고 지적합니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">노동 (Labor)</div><div class="d">몸을 목적 달성의 수단으로 사용하는 것. 정의상 음(-)의 효용을 가짐.</div></div>
+        <div class="term"><div class="t">소비재 / 생산재</div><div class="d">소비재는 필요를 직접 충족, 생산재(자본재)는 소비재 생산에 쓰이는 중간재.</div></div>
+        <div class="term"><div class="t">한계수입생산 (Marginal Revenue Product)</div><div class="d">노동자 한 명을 추가 고용해 늘어나는 산출량 × 가격. 임금과 비교해 고용 여부를 결정하는 기준.</div></div>
+        <div class="term"><div class="t">임금노동 (Wage Labor)</div><div class="d">자발적이고 보상이 따르는 노동. 노예노동과 달리 노동자와 고용주 쌍방의 동의가 필요.</div></div>
+        <div class="term"><div class="t">노동의 비특정성</div><div class="d">인간의 노동력은 다양한 용도로 재배치 가능하다는 특징. 기계·자본재의 경직성과 대비됨.</div></div>
+        <div class="term"><div class="t">경기순환 (Business Cycle)</div><div class="d">신용팽창에 따른 호황과, 신용긴축에 따른 불황·대량 실업의 반복.</div></div>
+        <div class="term"><div class="t">최저임금법의 실업 효과</div><div class="d">생산성이 법정 최저임금보다 낮은 노동자의 고용을 사실상 불법화하는 효과.</div></div>
+        <div class="term"><div class="t">착취론 (Exploitation Theory)</div><div class="d">마르크스주의의 주장. 강의는 자본의 생산성 기여를 무시한 오류라고 비판.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+
+      <details class="q">
+        <summary>Q1. 노동이 "음(-)의 효용"을 갖는다는 것은 무슨 뜻인가?</summary>
+        <div class="a"><b>정답:</b> 노동 그 자체는 하고 싶어서 하는 활동이 아니라, 그 결과물(산출)이 그 불편함보다 가치 있기 때문에 하는 활동이라는 뜻.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q2. 자본재(생산재)가 존재하려면 반드시 무엇이 전제되어야 하는가?</summary>
+        <div class="a"><b>정답:</b> 소비의 희생. 모든 자본재는 원래 소비될 수도 있었던 자원이 대신 생산에 투입된 것이다.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q3. 샌드위치 가게에서 직원을 추가 고용해 하루 20개를 더 팔고, 샌드위치 1개당 5달러, 재료비 2달러라면 이 직원의 한계수입생산은?</summary>
+        <div class="a"><b>정답:</b> 20 × (5−2) = 60달러. 이 직원의 임금이 60달러 미만이면 고용하는 것이 이득이다.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q4. 강의가 지목하는 실업의 두 가지 주요 원인은?</summary>
+        <div class="a"><b>정답:</b> ① 인플레이션(경기순환 포함) — 통화가치 하락과 신용팽창-긴축 사이클로 기업이 임금을 감당 못해 해고. ② 최저임금법 — 생산성이 낮은 노동자의 고용을 사실상 불법화.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q5. 케인스의 "2030년 주 15시간 노동" 예측을 강의는 왜 틀렸다고 보는가?</summary>
+        <div class="a"><b>정답:</b> 경제 문제(선택의 필요성)는 인간의 조건에서 영원히 사라지지 않기 때문. 아무리 풍요로워져도 시간은 유한하고 이성은 항상 더 나은 미래를 상상하므로, 현재와 미래 사이의 선택(그리고 그를 위한 노동 유인)은 계속 존재한다.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q6. 착취론에 대한 반박의 핵심 논리는?</summary>
+        <div class="a"><b>정답:</b> 자본가가 제공하는 자본재(예: 택시기사의 자동차)가 생산성 향상에 실질적으로 기여하며, 그 자본재는 자본가가 소비를 희생해 만든 것이므로, 자본가의 몫이 부당한 착취가 아니라 생산성 기여에 대한 정당한 대가라는 것.</div>
+      </details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>실업의 원인을 전적으로 인플레이션과 최저임금법으로 설명하는 이 강의의 시각에 동의하는가? 다른 요인(기술 변화, 산업 구조조정 등)은 어떻게 설명될 수 있을까?</li>
+        <li>한계수입생산 개념은 명확한 산출물이 있는 업종(샌드위치 가게)에는 적용하기 쉽지만, 산출을 측정하기 어려운 직종(예: 창작, 연구)에는 어떻게 적용할 수 있을까?</li>
+        <li>노동의 "비특정성" 덕분에 인간 노동 수요가 항상 존재한다는 주장은, AI·자동화가 발전하는 오늘날에도 여전히 유효할까?</li>
+        <li>착취론에 대한 이 강의의 반박에 마르크스주의 경제학자라면 어떤 재반박을 할 수 있을까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 1강의 최저임금 사례, 4강의 한계수입생산 개념을 함께 놓고 보면, 이 강좌가 "가격(임금)과 한계 분석"을 얼마나 일관되게 여러 주제에 적용하는지 잘 드러납니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>

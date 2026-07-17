@@ -1,0 +1,267 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 2강 가치와 한계효용</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --card: #ffffff;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --series-1: #2a78d6;
+    --series-1-soft: #cde2fb;
+    --good: #006300;
+    --warning: #b06a00;
+    --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10);
+    --accent: #2a78d6;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --card: #1f1f1e;
+      --text-primary: #ffffff;
+      --text-secondary: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --series-1: #3987e5;
+      --series-1-soft: #16324f;
+      --good: #0ca30c;
+      --warning: #fab219;
+      --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10);
+      --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src {
+    margin-top: 8px; font-size: 12px; color: var(--muted);
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 12px;
+  }
+  header.top .src a { color: var(--accent); }
+
+  .tabs {
+    display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto;
+    position: sticky; top: 0; z-index: 40;
+    background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary);
+    white-space: nowrap; flex: 0 0 auto;
+  }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+
+  details.q {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 10px;
+  }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+
+  .quote {
+    border-left: 3px solid var(--accent); padding: 4px 0 4px 12px;
+    font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0;
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 2강 · 가치와 한계효용</h1>
+    <div class="sub">주관적 가치 · 서수적 가치 vs 기수적 가치 · 한계효용 체감의 법칙 · 물-다이아몬드 역설</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 2강(약 48분 분량, <a href="https://www.youtube.com/watch?v=29vWuOQCEbo" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>재화·효용·경제재의 정의 (카를 멩거)</h2>
+      <p class="lead">Menger's basic definitions</p>
+      <p>오스트리아학파의 창시자 카를 멩거는 1871년 저서 『국민경제학 원리』에서 오늘날까지도 쓰이는 정의들을 제시했습니다.</p>
+      <ul>
+        <li><b>재화(Good)</b> — 인간의 필요를 충족시킬 수 있는 것. 필요가 존재하고, 그 속성이 필요를 충족시킬 수 있으며, 인간이 그 인과관계를 알고, 그것을 확보할 수 있어야 재화가 된다.</li>
+        <li><b>효용(Utility)</b> — 재화가 인간의 필요를 충족시키는 능력.</li>
+        <li><b>경제재(Economic Good)</b> — 수요가 공급보다 많은 재화. 반대로 공기처럼 수요보다 공급이 많으면 "비경제재"이며 시장이 형성되지 않는다.</li>
+        <li><b>희소성(Scarcity)</b> — 수요가 공급을 초과하는 상태. 희소성이야말로 인간이 "경제화(economize)"하도록, 즉 선택하도록 만드는 근본 원인이다.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>가치는 주관적이다 (오스트리아학파의 핵심 전제)</h2>
+      <p class="lead">Subjective value: the foundation of Austrian economics</p>
+      <p>멩거에 따르면 <b>가치는 재화에 내재된 물리적 속성이 아니라, 인간이 그 재화의 효용을 판단하는 심리적 작용</b>입니다. 즉 가치는 "인간의 의식 밖에는 존재하지 않는다."</p>
+      <p><b>석유의 사례</b>: 19세기 이전 석유는 땅에서 나오면 오히려 제거 비용을 치러야 하는 "쓰레기"였습니다(음의 가치). 내연기관이 발명되면서 동력원으로 쓸 수 있게 되자 석유는 매우 값진 재화가 되었습니다(양의 가치). 그런데 2020년 코로나 봉쇄로 수요가 급감하고 저장 공간이 부족해지자, 잠깐이지만 석유를 갖고 있으면 오히려 보관 비용을 대신 내주는(음의 가치) 상황이 벌어지기도 했습니다. <b>석유의 화학적 성질은 전혀 변하지 않았는데, 가치는 부정→긍정→부정→긍정으로 계속 바뀌었습니다.</b> 이것이 가치가 재화 자체가 아니라 인간의 판단에서 나온다는 증거입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>서수적 가치 vs 기수적 가치</h2>
+      <p class="lead">Ordinal vs. Cardinal value</p>
+      <p>오스트리아학파는 가치를 <b>서수적(ordinal)</b>으로만 파악할 수 있다고 봅니다. "사과가 오렌지보다 좋다"처럼 순위 비교는 가능하지만, "사과가 오렌지보다 2.3배 좋다"는 식의 <b>기수적(cardinal)</b> 수치화는 불가능하다는 것입니다.</p>
+      <p>미터·킬로그램·켈빈처럼 물리량에는 전 세계가 합의한 불변의 측정 단위가 있지만, 가치에는 그런 단위가 없습니다. 그래서 강의는 주류 경제학이 쓰는 "util(효용 단위)"이라는 개념을 "측정할 수 없는 것을 억지로 측정한 척하는 가짜 단위"라고 비판합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>가격은 가치가 아니다</h2>
+      <p class="lead">Price ≠ value</p>
+      <p>어떤 사람이 신발을 만 원에 샀다고 해서, 그 신발의 "가치가 만 원"이라는 뜻은 아닙니다. 만약 신발과 만 원의 가치가 똑같다면애초에 교환할 이유가 없습니다. 거래가 일어났다는 것은 <b>구매자는 신발을 만 원보다 더 가치 있게 여기고, 판매자는 만 원을 신발보다 더 가치 있게 여겼다</b>는 뜻입니다.</p>
+      <p>그래서 자발적 교환은 항상 <b>양쪽 모두에게 이득</b>입니다. 가치가 객관적이라면 거래에서 한쪽은 반드시 손해를 봐야 하지만, 가치가 주관적이기 때문에 둘 다 이득을 보는 거래가 가능합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>노동가치설 비판</h2>
+      <p class="lead">Critique of the labor theory of value</p>
+      <p>마르크스주의 경제학은 "가치는 투입된 노동량에서 나온다"는 노동가치설을 전제합니다. 강의는 이를 진흙 파이 비유로 반박합니다. 진흙 파이를 만드는 데 3시간이 걸리고 사과 파이를 만드는 데도 3시간이 걸린다고 해서, 둘의 가치가 같지는 않습니다. 아무도 진흙 파이를 먹고 싶어 하지 않기 때문입니다.</p>
+      <p>즉 <b>노동이 가치를 만드는 게 아니라, 노동은 가치 있는 것을 만들려고 시도할 뿐이며 성공할 수도 실패할 수도 있습니다.</b> 노동가치설을 전제로 "노동자가 만든 가치를 자본가가 가로챈다"는 착취론을 펴는 것은, 강의에 따르면 자본이 생산성에 기여하는 부분을 무시한 논리적 오류라고 봅니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>한계효용과 물-다이아몬드 역설</h2>
+      <p class="lead">Marginal utility and the water-diamond paradox</p>
+      <p>같은 재화라도 <b>단위가 늘어날수록 그 추가분(한계단위)의 가치는 점점 줄어든다</b>는 것이 한계효용 체감의 법칙입니다. 일주일을 굶은 사람에게 첫 끼니는 목숨과 직결된 극히 소중한 것이지만, 이미 하루 세끼를 챙겨 먹은 뒤의 스물다섯 번째 끼니는 거의 가치가 없습니다.</p>
+      <p>중요한 것은, 우리는 항상 "그 재화 전체"가 아니라 <b>다음 한 단위(한계 단위)</b>에 대해서만 가치를 매긴다는 점입니다. 물을 살 때 "평생 마실 물 전체"의 가치를 따지는 게 아니라, "지금 이 한 병"의 가치만 따집니다.</p>
+      <p>이 원리로 <b>물-다이아몬드 역설</b>을 설명할 수 있습니다. 생존에 필수적인 물은 매우 싸고, 없어도 사는 데 지장 없는 다이아몬드는 매우 비쌉니다. 물이 풍부한 사회에서는 물의 가장 시급한 필요(생존)는 이미 충족되어 있고, 우리가 사는 "한계 단위"의 물은 세차나 놀이처럼 덜 중요한 용도에 쓰입니다. 반면 다이아몬드는 희소해서 대부분의 사람들이 아주 소량만 가지며, 그 한계 단위는 결혼반지처럼 가장 소중한 용도에 쓰입니다. 그래서 필수재인 물이 사치재인 다이아몬드보다 싼 것입니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">재화 (Good)</div><div class="d">인간의 필요를 충족시킬 수 있다고 인식되는 것.</div></div>
+        <div class="term"><div class="t">경제재 (Economic Good)</div><div class="d">수요가 공급보다 많아 희소성을 갖는 재화.</div></div>
+        <div class="term"><div class="t">주관적 가치 (Subjective Value)</div><div class="d">가치는 재화 자체의 속성이 아니라 인간의 심리적 판단에서 비롯된다는 개념.</div></div>
+        <div class="term"><div class="t">서수적 가치 (Ordinal Value)</div><div class="d">순위 비교만 가능한 가치("A가 B보다 좋다").</div></div>
+        <div class="term"><div class="t">기수적 가치 (Cardinal Value)</div><div class="d">숫자로 정확히 측정·비교하는 가치. 오스트리아학파는 가치에 적용 불가능하다고 봄.</div></div>
+        <div class="term"><div class="t">노동가치설 (Labor Theory of Value)</div><div class="d">가치가 투입 노동량에서 나온다는 마르크스주의 이론. 강의는 이를 비판.</div></div>
+        <div class="term"><div class="t">한계효용 (Marginal Utility)</div><div class="d">재화 한 단위를 추가로 얻었을 때 늘어나는 만족감. 단위가 늘수록 체감함.</div></div>
+        <div class="term"><div class="t">한계효용 체감의 법칙</div><div class="d">같은 재화라도 보유량이 늘수록 추가 단위의 효용은 점점 줄어든다는 법칙.</div></div>
+        <div class="term"><div class="t">물-다이아몬드 역설</div><div class="d">필수재인 물이 사치재인 다이아몬드보다 싼 현상. 한계효용으로 설명됨.</div></div>
+        <div class="term"><div class="t">최소가치 사용 (Least Valuable Use)</div><div class="d">한계 단위를 구매할 때, 그 재화가 이미 충족한 다른 용도가 아니라 남은 가장 덜 중요한 용도를 기준으로 가치를 매기는 원리.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+
+      <details class="q">
+        <summary>Q1. 멩거가 정의한 "경제재"의 조건은?</summary>
+        <div class="a"><b>정답:</b> 수요가 공급(존재량)보다 많은 재화. 공기처럼 수요보다 공급이 많으면 비경제재이며 시장이 형성되지 않는다.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q2. 석유 사례가 "가치는 주관적"이라는 주장을 어떻게 뒷받침하는가?</summary>
+        <div class="a"><b>정답:</b> 석유의 화학적 성질은 전혀 변하지 않았는데도, 인간의 필요를 충족시키는 능력에 대한 판단이 바뀌면서(내연기관 발명, 2020년 수요 급감 등) 가치가 음→양→음→양으로 바뀌었기 때문. 가치가 재화 자체가 아니라 인간의 판단에서 나온다는 증거.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q3. 서수적 가치와 기수적 가치의 차이는? 오스트리아학파는 어느 쪽을 지지하는가?</summary>
+        <div class="a"><b>정답:</b> 서수적 가치는 순위 비교만 가능("A가 B보다 좋다"), 기수적 가치는 수치로 정확히 측정("A가 B보다 2.3배 좋다"). 오스트리아학파는 가치가 서수적으로만 존재한다고 본다.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q4. 가격이 곧 가치가 아니라는 것을 어떻게 설명할 수 있는가?</summary>
+        <div class="a"><b>정답:</b> 만약 신발과 만 원의 가치가 같다면 교환할 이유가 없다. 거래가 성립했다는 것 자체가, 구매자는 신발을, 판매자는 돈을 상대적으로 더 가치 있게 여겼다는 뜻이므로 가격은 가치의 상한/하한만 알려줄 뿐 가치 자체는 아니다.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q5. 노동가치설의 어떤 점이 비판받는가? (진흙 파이 비유)</summary>
+        <div class="a"><b>정답:</b> 진흙 파이와 사과 파이가 똑같이 3시간 걸려 만들어져도 가치는 전혀 다르다. 즉 투입 노동량이 아니라 그 결과물이 인간의 필요를 충족하는지가 가치를 결정하므로, 노동이 곧 가치를 만든다는 전제가 틀렸다는 것.</div>
+      </details>
+
+      <details class="q">
+        <summary>Q6. 물-다이아몬드 역설을 한계효용 개념으로 설명하면?</summary>
+        <div class="a"><b>정답:</b> 우리는 항상 "다음 한 단위(한계 단위)"의 가치만 매긴다. 물은 풍부해 한계 단위가 덜 중요한 용도(세차 등)에 쓰이지만, 다이아몬드는 희소해 한계 단위가 가장 중요한 용도(결혼반지 등)에 쓰이기 때문에, 필수재인 물이 오히려 더 싸다.</div>
+      </details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>"가치는 인간의 의식 밖에 존재하지 않는다"는 주장에 동의하는가? 그렇다면 시장 가격이 어느 정도 안정적으로 형성되는 이유는 무엇일까?</li>
+        <li>노동가치설에 대한 이 강의의 비판(진흙 파이 비유)에 마르크스주의 경제학자라면 어떻게 반박할 수 있을까?</li>
+        <li>"util"과 같은 효용 단위를 쓰는 주류 경제학의 시도를, 오스트리아학파의 비판을 참고하여 평가해보자. 완전히 무의미한 시도일까, 유용한 근사치일까?</li>
+        <li>물-다이아몬드 역설의 논리를 다른 사례(예: 공기와 예술작품, 소금의 역사적 가치 변화)에 적용해볼 수 있을까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: "가치는 재화가 아니라 필요와의 관계에서 나온다"는 멩거의 명제를 일상 속 구매 결정에 적용해보면 한계효용 개념이 훨씬 직관적으로 이해됩니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>
