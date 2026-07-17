@@ -48,11 +48,24 @@
   .lec .t { font-size: 13.5px; margin-top: 4px; }
   .lec.disabled { opacity: .45; pointer-events: none; }
   .lec.disabled .t { color: var(--muted); }
+
+  .ask-card {
+    display: block; text-decoration: none; color: #fff;
+    background: var(--accent); border-radius: var(--radius);
+    padding: 16px; box-shadow: var(--shadow); margin-bottom: 18px;
+  }
+  .ask-card .t { font-size: 15px; font-weight: 700; }
+  .ask-card .d { font-size: 12.5px; opacity: .9; margin-top: 3px; }
 </style>
 
 <div class="wrap">
   <h1>📚 경제학 원론 강의 목록</h1>
   <div class="sub">각 강의를 정리한 학습노트입니다. 준비된 강의를 눌러 확인하세요.</div>
+
+  <a class="ask-card" href="ask.html">
+    <div class="t">💬 궁금한 걸 질문해보세요</div>
+    <div class="d">1강~18강 내용을 바탕으로 AI가 답변하는 질의응답 페이지</div>
+  </a>
 
   <div class="grid">
     <a class="lec" href="lecture-01.html"><div class="n">1강</div><div class="t">인간행동과 경제학의 방법론</div></a>
