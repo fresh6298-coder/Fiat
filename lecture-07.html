@@ -1,0 +1,170 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 7강 기술</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 7강 · 기술</h1>
+    <div class="sub">비물질 자본 · 러다이트 오류 · 기술과 노예제의 종말 · 시장주도형 혁신 · 소프트웨어</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 7강(<a href="https://www.youtube.com/watch?v=S1zwzegj_LI" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>기술이란 무엇인가: 비물질 자본</h2>
+      <p class="lead">Technology as non-physical capital</p>
+      <p>기술은 생산 이전에 행위자의 머릿속에 있는 "계획"입니다. 요리 레시피처럼, 그 자체는 물리적 실체가 없지만 없이는 결과물(요리)이 나올 수 없습니다. 물리적 자본은 기술 개선 없이는 결국 <b>수확체감</b>에 부딪히지만(낚싯대를 아무리 더 사도 소용없는 지점이 옴), 새로운 기술(배, 그물)은 자본 투자를 다시 생산적으로 만듭니다. 즉 <b>기술은 수확체감을 피하게 해주는 요인</b>입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>기술은 일자리를 없애지 않는다: 러다이트의 오류</h2>
+      <p class="lead">The Luddite fallacy</p>
+      <p>기계가 일자리를 빼앗는다는 두려움은 마르크스부터 러다이트 운동(공장 기계를 파괴한 19세기 노동자 집단)까지 이어져왔지만, 강의는 200년이 지난 지금 영국의 고용 인구가 오히려 역사상 최대라는 사실을 근거로 이를 반박합니다. <b>기계는 노동을 대체하는 게 아니라 노동의 생산성을 높인다</b>는 것입니다. 인간의 시간은 늘 희소하고 다양한 용도로 재배치 가능하기 때문에(4강의 노동의 비특정성), 수요는 사라지지 않고 더 생산적인 형태로 옮겨갑니다.</p>
+      <p>운송 산업을 예로 들면: 사람을 등에 업고 나르던 일 → 바퀴 → 말과 수레 → 자동차·기차·트럭·비행기로 발전하면서, 일자리가 사라진 게 아니라 <b>같은 서비스(운송)를 훨씬 더 생산적인 방식으로 제공하는 일자리</b>로 바뀌었습니다. 즉 우리는 어떤 특정한 "일하는 방식"을 원하는 게 아니라, 그 일이 만족시키는 필요(예: 운송 자체) 를 원한다는 것이 핵심입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>기술이 노예제를 경제적으로 무의미하게 만든 이유</h2>
+      <p class="lead">Technology and the end of slavery</p>
+      <p>산업화가 진행된 곳마다 노예제가 빠르게 폐지되었습니다. 강의는 이를 도덕적 각성뿐 아니라 <b>경제적 논리</b>로도 설명합니다. 기계가 값비싸질수록, 그 기계를 다루는 노동자의 <b>협조와 신뢰</b>가 훨씬 중요해집니다. 화난 노예는 자기 노동력의 100년치 가치를 가진 기계를 망가뜨릴 수 있지만, 보수를 받는 자발적 노동자는 그럴 유인이 없습니다. 그래서 일이 "완력(bronze)"보다 "지능과 협조(brains)"의 문제가 될수록, 강제 노동은 비경제적이 됩니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>기술 진보는 왜 장기 경제성장의 근본 동력인가</h2>
+      <p class="lead">Ideas are non-scarce</p>
+      <p>노동·재산·자본·에너지는 모두 희소하지만, <b>아이디어는 희소하지 않습니다.</b> 바퀴를 복제한다고 원래 발명자에게서 바퀴를 빼앗는 게 아닙니다. 그래서 다른 모든 경제화 수단이 결국 수확체감에 부딪히는 반면, 기술만은 계속 생산성을 밀어올릴 수 있습니다. 경제학자 마이클 크레머의 연구는 인구가 많은 사회일수록 더 빠른 경제성장을 보인다는 것을 보여주는데, 이는 사람이 많을수록 새로운 아이디어를 내는 사람도 많아지고, 아이디어는 비경쟁적(non-rival)이라 모두에게 이익이 되기 때문이라고 강의는 설명합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>혁신은 과학이 아니라 시장이 이끈다</h2>
+      <p class="lead">Market-driven innovation vs. the "linear model of science"</p>
+      <p>흔히 "과학자의 발견 → 엔지니어의 응용 → 기술 혁신"이라는 순서(선형 모델)로 생각하지만, 강의는 실제 역사는 정반대인 경우가 많다고 주장합니다. 증기기관을 발명한 것은 과학 이론이 아니라, 문제를 해결하려던 현장 기술자들이었고, <b>열역학 법칙은 오히려 이미 작동하던 증기기관을 설명하기 위해 나중에 정립</b>되었다는 것입니다(테런스 킬리의 연구 인용). 라이트 형제가 처음 비행에 성공했을 때도 저명한 과학자들은 비행이 불가능하다고 주장했습니다. 즉 <b>시장의 필요에 대응하는 기업가적 시행착오</b>가 혁신을 이끌고, 그 혁신이 시장의 검증(이윤)을 통과해야 비로소 "혁신"으로 인정받는다는 것이 강의의 핵심 주장입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>소프트웨어: 가장 순수한 형태의 기술재</h2>
+      <p class="lead">Software as the purest technological good</p>
+      <p>소프트웨어는 물리적 형태가 없는 순수한 정보(코드)로, 기계에 정확한 지시를 내려 원하는 대로 동작하게 만듭니다. 복제 비용이 거의 없고(비경쟁재), 전 세계 어디로든 쉽게 전달할 수 있어, 강의는 소프트웨어를 <b>인류가 만든 기술적 성취의 정점</b>에 가까운 형태로 봅니다. (이 주제는 18강에서 비트코인을 "화폐의 소프트웨어적 대안"으로 연결짓는 논의로 이어집니다.)</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">기술 (Technology)</div><div class="d">생산 행위 이전에 존재하는 계획·아이디어. 비물질적이며 비희소적인 자본 형태.</div></div>
+        <div class="term"><div class="t">수확체감 (Diminishing Returns)</div><div class="d">기술 개선 없이 같은 자본을 계속 늘려도 생산성 증가가 점점 둔화되는 현상.</div></div>
+        <div class="term"><div class="t">러다이트 오류 (Luddite Fallacy)</div><div class="d">기계가 일자리를 영구적으로 파괴한다는 잘못된 믿음. 실제로는 생산성을 높여 더 나은 일자리를 만듦.</div></div>
+        <div class="term"><div class="t">비경쟁재 (Non-rival Good)</div><div class="d">한 사람이 사용해도 다른 사람의 사용 가능성이 줄지 않는 재화. 아이디어·소프트웨어가 대표적.</div></div>
+        <div class="term"><div class="t">선형 과학 모델</div><div class="d">과학적 발견이 기술 혁신으로 이어진다는 통념. 강의는 실제로는 반대 순서가 흔하다고 반박.</div></div>
+        <div class="term"><div class="t">노동의 브론즈 vs 브레인</div><div class="d">완력(bronze) 중심 노동에서 지능·협조(brains) 중심 노동으로 옮겨가면서 강제노동이 비경제적이 됨.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 기술이 "수확체감을 피하게 해주는 요인"이라는 말의 의미는?</summary><div class="a"><b>정답:</b> 같은 방식의 자본 투자는 결국 생산성 증가가 둔화되지만, 새로운 기술(더 나은 방법)은 자본 투자를 다시 생산적으로 만들어 수확체감을 극복하게 해준다는 뜻.</div></details>
+      <details class="q"><summary>Q2. 러다이트 운동이 틀렸다는 근거로 강의가 제시하는 실증적 사실은?</summary><div class="a"><b>정답:</b> 산업화 이후 200년이 지난 오늘날, 영국의 고용 인구가 역사상 어느 때보다도 많다는 사실. 기계는 일자리를 없앤 게 아니라 더 생산적인 일자리로 바꿨다.</div></details>
+      <details class="q"><summary>Q3. 기술 발전이 노예제를 경제적으로 무의미하게 만든 이유는?</summary><div class="a"><b>정답:</b> 기계가 비싸질수록 그것을 다루는 노동자의 협조와 신뢰가 중요해지는데, 강제로 부리는 노예는 비싼 기계를 파손할 유인이 있어 위험하고 비경제적이기 때문.</div></details>
+      <details class="q"><summary>Q4. 왜 기술(아이디어)만이 장기적으로 수확체감에서 자유로운가?</summary><div class="a"><b>정답:</b> 노동·자본·에너지 등은 모두 희소하지만 아이디어는 비경쟁재라 복제해도 원래 소유자에게서 빼앗기지 않으며, 계속 생산성을 밀어올릴 수 있기 때문.</div></details>
+      <details class="q"><summary>Q5. "선형 과학 모델"에 대해 강의가 제시하는 반박 사례는?</summary><div class="a"><b>정답:</b> 증기기관은 과학 이론(열역학)에서 나온 게 아니라 현장 기술자들의 시행착오에서 나왔고, 열역학 법칙은 오히려 이미 작동하던 증기기관을 설명하기 위해 나중에 정립되었다.</div></details>
+      <details class="q"><summary>Q6. 강의가 소프트웨어를 "가장 순수한 형태의 기술재"로 보는 이유는?</summary><div class="a"><b>정답:</b> 물리적 형태가 없고 복제 비용이 거의 없으며(비경쟁재), 전 세계 어디로든 쉽게 전달되어 기계의 생산성을 극대화하는 순수한 정보이기 때문.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>"기술은 일자리를 없애지 않고 옮길 뿐"이라는 주장은 장기적으로는 맞을 수 있지만, 전환 과정에서 일자리를 잃은 개인에게는 여전히 큰 고통일 수 있다. 이 전환 비용을 어떻게 다뤄야 할까?</li>
+        <li>인공지능처럼 "지능 노동" 자체를 대체할 수 있는 기술이 등장한다면, "인간 노동은 항상 재배치될 수 있다"는 강의의 전제가 여전히 성립할까?</li>
+        <li>선형 과학 모델에 대한 비판은 설득력 있지만, 현대의 반도체·백신·항공우주 산업처럼 과학 이론이 먼저 기술을 이끄는 사례도 많다. 이 두 모델은 어떻게 공존할까?</li>
+        <li>인구가 많을수록 혁신이 늘어난다는 주장은, 왜 인구가 비슷한 나라들 사이에서도 혁신 수준이 크게 다른지를 설명하지 못한다. 제도·문화 같은 다른 요인은 어떻게 작용할까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의의 "시장주도형 혁신" 개념은 9강(무역)의 분업·특화 논의, 그리고 10~11강의 가격 시스템 논의와 함께 읽으면 왜 오스트리아학파가 중앙계획을 비판하는지 더 잘 이해할 수 있습니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>

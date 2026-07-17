@@ -1,0 +1,163 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 8강 에너지와 권력</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 8강 · 에너지와 권력</h1>
+    <div class="sub">에너지는 풍부하고 권력(power)은 희소하다 · 탄화수소의 가치 · 에너지와 자유</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 8강(<a href="https://www.youtube.com/watch?v=lVDp7CTemBc" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>에너지 vs 권력(파워): 핵심 구분</h2>
+      <p class="lead">Energy is abundant; power is scarce</p>
+      <p>물리학적으로 에너지는 일을 하거나 열을 전달하는 능력(줄, 칼로리)이고, <b>권력(power)은 시간당 에너지</b>(와트 = 줄/초)입니다. 강의의 핵심 주장은, <b>에너지 자체는 무한에 가깝게 풍부하지만(태양광·바람·지하 매장 탄화수소·우라늄 모두 인류 소비량을 압도적으로 초과), 정작 희소한 것은 "원하는 시간과 장소에 필요한 만큼 뿜어낼 수 있는 힘", 즉 권력</b>이라는 것입니다. 우리는 에너지를 총량으로 소비하는 게 아니라, 항상 한계적으로(마진에서) 필요한 순간에 쓰는 전력을 소비합니다(2강의 한계효용 논리와 동일).</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>탄화수소(석유·석탄·가스)가 그토록 가치 있는 이유</h2>
+      <p class="lead">Why hydrocarbons are so valuable</p>
+      <p>태양광과 바람은 공짜지만, <b>원할 때 원하는 만큼 공급할 수 없다</b>는 한계가 있습니다. 반면 탄화수소는 에너지 밀도가 높고(나무 대비 석탄 50% 더 밀도 높음, 석유·가스는 그 이상), 운반이 쉬우며, <b>언제 어디서나 즉시 동력으로 전환</b>할 수 있습니다. 그래서 태양광 총에너지가 인류 소비량의 수백 배에 달함에도, 인류는 여전히 막대한 돈을 들여 탄화수소 인프라를 건설합니다. 사람 200와트, 말 750와트(마력의 기원), 1750년대 네덜란드 풍차 12,000와트에서 오늘날 대형 발전기 4억 와트까지, 인류가 다룰 수 있는 순간 최대 출력은 지난 두 세기 동안 <b>수백만 배</b> 커졌다는 것이 강의의 핵심 데이터입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>재생에너지의 한계: 안정 공급과 배터리 밀도 문제</h2>
+      <p class="lead">The reliability problem of wind and solar</p>
+      <p>태양이 지지 않는 시간, 바람이 부는 시간에만 전력을 공급하는 재생에너지는 전력망의 "언제든 최대부하를 감당할 수 있어야 한다"는 요건을 홀로 충족할 수 없습니다. 그래서 항상 화석연료·원자력 같은 안정적 백업 발전이 필요하며, 강의는 이 때문에 태양광·풍력 인프라가 <b>정부 보조금 없이는 경제적으로 지어지지 않는다</b>고 지적합니다. 배터리로 이를 보완하려 해도, 배터리의 에너지 밀도(약 0.5메가줄/kg)는 석유(약 44메가줄/kg)의 100분의 1 수준에 불과해 비효율적이라는 것이 강의의 주장입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>에너지 소비와 빈곤·수명의 관계</h2>
+      <p class="lead">Energy access and living standards</p>
+      <p>강의는 하수 처리, 난방, 온수, 현대 의료 등 삶의 질을 바꾼 거의 모든 발전이 대규모 동력(권력) 확보 덕분에 가능했다고 설명합니다. 실제로 인당 에너지 소비량이 낮은 나라일수록 극빈층 비율이 높게 나타나는 뚜렷한 경향이 있다는 점을 근거로 들며, <b>에너지 접근성 부족이 곧 빈곤</b>이라는 등식을 제시합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>동력 혁명과 노예제·여성의 경제적 지위</h2>
+      <p class="lead">Energy, freedom, and the empowerment of women</p>
+      <p>산업화 이전에는 노예 한 명을 추가하는 것이 개인이 쓸 수 있는 동력을 거의 두 배로 늘리는 큰 의미였지만, 오늘날처럼 기계가 수백 명분의 동력을 대신하는 세상에서는 노예 한 명이 더해봤자 한계적으로 얻는 동력 증가분이 미미합니다(7강의 논리와 연결). 그래서 강의는 산업화가 확산될수록 노예제가 경제적으로 무의미해졌다고 봅니다.</p>
+      <p>비슷한 논리로, 산업화 이전에는 육체적 힘이 생산성을 크게 좌우해 여성이 남성에게 경제적으로 의존하기 쉬웠지만, 기계가 육체노동을 대신하면서 생산성이 인지 능력 중심으로 바뀌었고, 이 영역에서는 남녀 격차가 훨씬 작다는 점에서 강의는 산업화가 여성의 경제적 자립을 가능하게 한 요인 중 하나라고 설명합니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">에너지 (Energy)</div><div class="d">일을 하거나 열을 전달하는 능력. 강의 관점에서 전 지구적으로 사실상 무한히 풍부함.</div></div>
+        <div class="term"><div class="t">권력/파워 (Power)</div><div class="d">시간당 에너지(와트=줄/초). 원하는 순간·장소에 쓸 수 있는 에너지로, 실제로 희소한 것.</div></div>
+        <div class="term"><div class="t">에너지 밀도</div><div class="d">단위 질량당 담긴 에너지의 양. 탄화수소가 나무·배터리보다 훨씬 높음.</div></div>
+        <div class="term"><div class="t">전력망 최대부하</div><div class="d">전력망이 언제든 감당해야 하는 최대 수요. 재생에너지 단독으로는 충족하기 어려움.</div></div>
+        <div class="term"><div class="t">배터리 에너지 밀도 문제</div><div class="d">배터리는 석유 대비 약 100분의 1의 에너지 밀도를 가져, 안정적 대안이 되기 어렵다는 지적.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 강의가 "에너지는 풍부하지만 권력(power)은 희소하다"고 구분하는 이유는?</summary><div class="a"><b>정답:</b> 태양광·바람·탄화수소 등 에너지 총량은 인류 소비량을 압도적으로 초과하지만, 원하는 시간·장소에 즉시 필요한 만큼 뽑아 쓸 수 있는 능력(권력)은 제한적이기 때문.</div></details>
+      <details class="q"><summary>Q2. 태양광과 바람이 무료임에도 탄화수소가 여전히 가치 있는 이유는?</summary><div class="a"><b>정답:</b> 태양광과 바람은 원할 때 원하는 만큼 공급할 수 없지만, 탄화수소는 에너지 밀도가 높고 언제 어디서나 즉시 동력으로 전환할 수 있기 때문.</div></details>
+      <details class="q"><summary>Q3. 재생에너지 인프라가 정부 보조금 없이 경제적으로 지어지기 어려운 이유는?</summary><div class="a"><b>정답:</b> 전력망은 언제든 최대부하를 감당해야 하는데, 태양광·풍력은 그것을 홀로 충족하지 못해 항상 화석연료·원자력 같은 백업 발전을 별도로 지어야 하기 때문.</div></details>
+      <details class="q"><summary>Q4. 강의가 제시하는 에너지 소비와 빈곤의 관계는?</summary><div class="a"><b>정답:</b> 인당 에너지 소비량이 낮은 나라일수록 극빈층 비율이 높게 나타나는 뚜렷한 경향이 있다는 것.</div></details>
+      <details class="q"><summary>Q5. 산업화가 노예제를 경제적으로 무의미하게 만들었다는 논리는?</summary><div class="a"><b>정답:</b> 산업화 이전엔 노예 한 명이 동력을 거의 두 배로 늘렸지만, 기계가 수백 명분의 동력을 대신하는 오늘날에는 노예 한 명 추가의 한계 동력 증가분이 미미해졌기 때문.</div></details>
+      <details class="q"><summary>Q6. 산업화가 여성의 경제적 자립에 기여했다고 보는 근거는?</summary><div class="a"><b>정답:</b> 기계가 육체노동을 대신하면서 생산성이 인지 능력 중심으로 바뀌었고, 이 영역에서는 남녀 격차가 육체적 힘의 격차보다 훨씬 작기 때문.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>배터리 기술(예: 리튬이온 밀도 개선, 그리드 스토리지)이 계속 발전한다면, 이 강의가 지적하는 재생에너지의 "안정 공급 한계"가 미래에는 해소될 수 있을까?</li>
+        <li>에너지 소비와 빈곤 감소의 상관관계는 명확하지만, 이것이 반드시 "탄화수소 중심 에너지"를 의미할 필요는 없다는 반론도 가능하다. 원자력·수력 등 다른 대안은 이 논리에서 어떤 위치를 차지할까?</li>
+        <li>기후변화 대응을 위한 탄소 배출 감축 정책과, 이 강의가 강조하는 "저렴하고 안정적인 동력 접근성" 사이의 트레이드오프는 어떻게 다뤄야 할까?</li>
+        <li>여성의 경제적 자립을 산업화·기계화로 설명하는 이 강의의 논리는, 문화적·법적 변화(참정권, 교육 기회 확대 등)의 역할을 어느 정도 반영하고 있을까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 이 강의는 오스트리아학파·비트코인 옹호 진영의 관점을 강하게 반영하고 있어, 주류 에너지·기후 경제학의 반대 논거도 함께 찾아보면 균형 잡힌 이해에 도움이 됩니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>
