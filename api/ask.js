@@ -94,7 +94,10 @@ module.exports = async (req, res) => {
         body: JSON.stringify({
           system_instruction: { parts: [{ text: buildSystemPrompt() }] },
           contents,
-          generationConfig: { maxOutputTokens: 700 },
+          generationConfig: {
+            maxOutputTokens: 2048,
+            thinkingConfig: { thinkingBudget: 0 },
+          },
         }),
       }
     );
@@ -122,7 +125,10 @@ module.exports = async (req, res) => {
       return;
     }
 
-    res.status(200).json({ answer });
+    const truncated = candidate && candidate.finishReason === 'MAX_TOKENS';
+    res.status(200).json({
+      answer: truncated ? answer + '\n\n(※ 답변이 길어져 중간에 잘렸습니다. "이어서 설명해줘"라고 다시 물어보세요.)' : answer,
+    });
   } catch (err) {
     res.status(500).json({ error: '요청 처리 중 오류가 발생했습니다.', detail: String(err).slice(0, 500) });
   }
