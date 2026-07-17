@@ -27,12 +27,39 @@
   body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   .wrap { max-width: 720px; margin: 0 auto; padding: 16px 16px 0; display: flex; flex-direction: column; min-height: 100vh; }
   header.top { padding-bottom: 12px; }
-  header.top .toprow { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  header.top .toprow { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  header.top .toprow .links { display: flex; gap: 12px; align-items: baseline; }
   header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
-  header.top .notes-link { font-size: 12.5px; color: var(--accent); text-decoration: none; white-space: nowrap; }
+  header.top .notes-link, header.top .sync-link { font-size: 12.5px; color: var(--accent); text-decoration: none; white-space: nowrap; background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; }
   header.top h1 { font-size: 20px; margin: 6px 0 4px; letter-spacing: -0.02em; }
   header.top .sub { color: var(--muted); font-size: 13px; }
   header.top .note { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+
+  .sync-panel {
+    display: none; margin-top: 10px; background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow);
+  }
+  .sync-panel.open { display: block; }
+  .sync-panel h2 { font-size: 14px; margin: 0 0 8px; }
+  .sync-panel p { font-size: 12.5px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
+  .sync-panel .code-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .sync-panel input[type="text"] {
+    flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px;
+    font-size: 13.5px; background: var(--surface-1); color: var(--text-primary); font-family: inherit;
+  }
+  .sync-panel .code-row button {
+    border: none; border-radius: 10px; padding: 0 12px; font-size: 12.5px; font-weight: 600; cursor: pointer;
+    background: var(--accent); color: #fff; white-space: nowrap;
+  }
+  .sync-panel .row2 { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sync-panel .row2 button {
+    border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 12px;
+    background: transparent; color: var(--text-secondary); cursor: pointer;
+  }
+  .sync-panel .row2 button.danger { color: var(--critical); border-color: var(--critical); }
+  .sync-panel .status { margin-top: 8px; font-size: 12px; }
+  .sync-panel .status.saved { color: var(--good, #1a7a1a); }
+  .sync-panel .status.err { color: var(--critical); }
 
   .chat { flex: 1; overflow-y: auto; padding: 8px 2px 16px; display: flex; flex-direction: column; gap: 12px; }
   .msg { max-width: 84%; padding: 10px 14px; border-radius: var(--radius); font-size: 14.5px; white-space: pre-wrap; word-break: break-word; box-shadow: var(--shadow); }
@@ -65,11 +92,32 @@
   <header class="top">
     <div class="toprow">
       <a class="back" href="index.html">← 강의 목록</a>
-      <a class="notes-link" href="notes.html">📒 저장한 노트</a>
+      <div class="links">
+        <button type="button" class="sync-link" id="syncToggle">🔗 동기화</button>
+        <a class="notes-link" href="notes.html">📒 저장한 노트</a>
+      </div>
     </div>
     <h1>💬 경제학 원론에게 질문하기</h1>
     <div class="sub">1강~18강 학습노트 내용을 바탕으로 AI가 답변합니다.</div>
     <div class="note">이 페이지의 답변은 사이트에 정리된 강의 요약 자료(핵심 개념·용어집·퀴즈)에 근거해 AI가 생성합니다. 원본 강의 스크립트를 그대로 인용하지 않으며, 자료에 없는 내용은 답하지 않을 수 있습니다. 마음에 드는 답변은 "💾 저장" 버튼으로 노트에 보관할 수 있습니다.</div>
+
+    <div class="sync-panel" id="syncPanel">
+      <h2>🔗 여러 기기에서 동기화</h2>
+      <p>
+        동기화 코드를 만들고 다른 기기에도 똑같이 입력하면, 저장한 노트를 어디서든 볼 수 있습니다.
+        이 코드는 비밀번호처럼 작동하니 다른 사람과 공유하지 마세요. 코드를 잃어버리면 그 노트는 다시 불러올 수 없습니다.
+      </p>
+      <div class="code-row">
+        <input type="text" id="syncCodeInput" placeholder="동기화 코드 (예: ab3f-9k2m-plq7-8zxt)" autocomplete="off" />
+        <button type="button" id="syncConnectBtn">연결</button>
+      </div>
+      <div class="row2">
+        <button type="button" id="syncNewBtn">새 코드 만들기</button>
+        <button type="button" id="syncCopyBtn">코드 복사</button>
+        <button type="button" class="danger" id="syncDisconnectBtn">연결 해제</button>
+      </div>
+      <div class="status" id="syncStatus"></div>
+    </div>
   </header>
 
   <div class="chat" id="chat">
@@ -98,7 +146,17 @@
   const sendBtn = document.getElementById('send');
   const history = [];
   const NOTES_KEY = 'econ_saved_notes';
+  const SYNC_CODE_KEY = 'econ_sync_code';
   const MAX_NOTES = 300;
+
+  const syncToggle = document.getElementById('syncToggle');
+  const syncPanel = document.getElementById('syncPanel');
+  const syncCodeInput = document.getElementById('syncCodeInput');
+  const syncConnectBtn = document.getElementById('syncConnectBtn');
+  const syncNewBtn = document.getElementById('syncNewBtn');
+  const syncCopyBtn = document.getElementById('syncCopyBtn');
+  const syncDisconnectBtn = document.getElementById('syncDisconnectBtn');
+  const syncStatus = document.getElementById('syncStatus');
 
   function scrollToBottom() {
     chat.scrollTop = chat.scrollHeight;
@@ -114,6 +172,73 @@
     return div;
   }
 
+  function getSyncCode() {
+    return localStorage.getItem(SYNC_CODE_KEY) || '';
+  }
+
+  function generateSyncCode() {
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    const chars = Array.from(bytes, (b) => alphabet[b % alphabet.length]);
+    return [chars.slice(0, 4), chars.slice(4, 8), chars.slice(8, 12), chars.slice(12, 16)]
+      .map((g) => g.join(''))
+      .join('-');
+  }
+
+  function setSyncStatus(text, kind) {
+    syncStatus.textContent = text;
+    syncStatus.className = 'status' + (kind ? ' ' + kind : '');
+  }
+
+  function refreshSyncUI() {
+    const code = getSyncCode();
+    syncCodeInput.value = code;
+    syncToggle.textContent = code ? '🔗 동기화 중' : '🔗 동기화';
+    setSyncStatus(code ? '✅ 이 코드로 동기화되고 있습니다.' : '', code ? 'saved' : '');
+  }
+
+  syncToggle.addEventListener('click', () => syncPanel.classList.toggle('open'));
+
+  syncConnectBtn.addEventListener('click', () => {
+    const code = syncCodeInput.value.trim().toLowerCase();
+    if (!/^[a-z0-9-]{6,64}$/.test(code)) {
+      setSyncStatus('코드 형식이 올바르지 않습니다.', 'err');
+      return;
+    }
+    localStorage.setItem(SYNC_CODE_KEY, code);
+    refreshSyncUI();
+  });
+
+  syncNewBtn.addEventListener('click', () => {
+    const code = generateSyncCode();
+    localStorage.setItem(SYNC_CODE_KEY, code);
+    refreshSyncUI();
+    setSyncStatus('✅ 새 코드가 생성되었습니다. 다른 기기에 이 코드를 입력해 연결하세요.', 'saved');
+  });
+
+  syncCopyBtn.addEventListener('click', async () => {
+    const code = getSyncCode();
+    if (!code) {
+      setSyncStatus('복사할 코드가 없습니다. 먼저 코드를 만들거나 입력해주세요.', 'err');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(code);
+      setSyncStatus('📋 코드가 복사되었습니다.', 'saved');
+    } catch {
+      setSyncStatus('복사에 실패했습니다. 코드를 직접 선택해 복사해주세요.', 'err');
+    }
+  });
+
+  syncDisconnectBtn.addEventListener('click', () => {
+    localStorage.removeItem(SYNC_CODE_KEY);
+    refreshSyncUI();
+    setSyncStatus('연결이 해제되었습니다. (기존 노트는 서버에 그대로 남아있고, 코드로 다시 연결하면 볼 수 있습니다.)', '');
+  });
+
+  refreshSyncUI();
+
   function loadNotes() {
     try {
       const raw = JSON.parse(localStorage.getItem(NOTES_KEY) || '[]');
@@ -123,10 +248,19 @@
     }
   }
 
-  function saveNote(question, answer) {
+  function saveNoteLocal(question, answer) {
     const notes = loadNotes();
     notes.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), question, answer, savedAt: new Date().toISOString() });
     localStorage.setItem(NOTES_KEY, JSON.stringify(notes.slice(0, MAX_NOTES)));
+  }
+
+  async function saveNoteRemote(code, question, answer) {
+    const res = await fetch('/api/notes', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ code, question, answer }),
+    });
+    if (!res.ok) throw new Error('save failed');
   }
 
   function attachSaveButton(bubble, question, answer) {
@@ -134,11 +268,21 @@
     btn.type = 'button';
     btn.className = 'save-btn';
     btn.textContent = '💾 저장';
-    btn.addEventListener('click', () => {
-      saveNote(question, answer);
-      btn.textContent = '✅ 저장됨';
-      btn.classList.add('saved');
+    btn.addEventListener('click', async () => {
       btn.disabled = true;
+      saveNoteLocal(question, answer);
+      const code = getSyncCode();
+      if (code) {
+        try {
+          await saveNoteRemote(code, question, answer);
+          btn.textContent = '✅ 저장됨 (동기화됨)';
+        } catch {
+          btn.textContent = '⚠️ 로컬에만 저장됨';
+        }
+      } else {
+        btn.textContent = '✅ 저장됨';
+      }
+      btn.classList.add('saved');
     });
     bubble.appendChild(document.createElement('br'));
     bubble.appendChild(btn);
