@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const KB_PATH = path.join(__dirname, '..', 'data', 'knowledge-base.json');
-const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5';
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const MAX_QUESTION_LEN = 800;
 const MAX_HISTORY_TURNS = 6;
 
@@ -47,9 +47,9 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    res.status(500).json({ error: '서버에 ANTHROPIC_API_KEY 환경변수가 설정되어 있지 않습니다.' });
+    res.status(500).json({ error: '서버에 GEMINI_API_KEY 환경변수가 설정되어 있지 않습니다.' });
     return;
   }
 
@@ -78,25 +78,26 @@ module.exports = async (req, res) => {
   const trimmedHistory = history
     .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
     .slice(-MAX_HISTORY_TURNS * 2)
-    .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_QUESTION_LEN) }));
+    .map((m) => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content.slice(0, MAX_QUESTION_LEN) }],
+    }));
 
-  const messages = [...trimmedHistory, { role: 'user', content: question }];
+  const contents = [...trimmedHistory, { role: 'user', parts: [{ text: question }] }];
 
   try {
-    const upstream = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 700,
-        system: buildSystemPrompt(),
-        messages,
-      }),
-    });
+    const upstream = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: buildSystemPrompt() }] },
+          contents,
+          generationConfig: { maxOutputTokens: 700 },
+        }),
+      }
+    );
 
     if (!upstream.ok) {
       const errText = await upstream.text();
@@ -105,13 +106,23 @@ module.exports = async (req, res) => {
     }
 
     const data = await upstream.json();
-    const answer = (data.content || [])
-      .filter((block) => block.type === 'text')
-      .map((block) => block.text)
+    const candidate = (data.candidates || [])[0];
+    const answer = ((candidate && candidate.content && candidate.content.parts) || [])
+      .map((part) => part.text || '')
       .join('\n')
       .trim();
 
-    res.status(200).json({ answer: answer || '답변을 생성하지 못했습니다.' });
+    if (!answer) {
+      const blockReason = data.promptFeedback && data.promptFeedback.blockReason;
+      res.status(200).json({
+        answer: blockReason
+          ? '이 질문에는 답변할 수 없습니다. 다른 방식으로 다시 질문해주세요.'
+          : '답변을 생성하지 못했습니다.',
+      });
+      return;
+    }
+
+    res.status(200).json({ answer });
   } catch (err) {
     res.status(500).json({ error: '요청 처리 중 오류가 발생했습니다.', detail: String(err).slice(0, 500) });
   }
