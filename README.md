@@ -28,8 +28,22 @@ lecture-15.html      # 15강 · 통화팽창
 lecture-16.html      # 16강 · 폭력
 lecture-17.html      # 17강 · 국방
 lecture-18.html      # 18강 · 문명과 자본주의
+ask.html             # 💬 AI 질의응답 페이지
+api/ask.js           # 질의응답용 Vercel 서버리스 함수 (Anthropic API 호출)
+data/knowledge-base.json  # 1~18강 요약 자료를 모은 질의응답용 지식베이스
 ```
 
 1강부터 18강까지 모든 강의 노트가 등록되었습니다.
 
 GitHub Pages 또는 Vercel로 배포하면 `index.html`이 자동으로 저장소의 홈페이지로 뜹니다.
+
+## 💬 질문하기 (AI 질의응답) 설정
+
+`ask.html`은 사용자가 자유 형식으로 질문하면 `api/ask.js` 서버리스 함수가 `data/knowledge-base.json`(1~18강 요약 자료)을 근거로 Claude API를 호출해 답변하는 페이지입니다. 원본 강의 스크립트는 저장하지 않으며, 이미 재구성된 요약 자료만 근거로 사용합니다.
+
+동작하려면 Vercel 프로젝트에 아래 환경변수를 설정해야 합니다 (Vercel 대시보드 → 프로젝트 → Settings → Environment Variables):
+
+- `ANTHROPIC_API_KEY` (필수) — [console.anthropic.com](https://console.anthropic.com)에서 발급받은 API 키
+- `ANTHROPIC_MODEL` (선택, 기본값 `claude-sonnet-5`) — 사용할 모델 ID
+
+환경변수 설정 후 재배포하면 `ask.html`에서 바로 질문할 수 있습니다. API 키는 서버(서버리스 함수) 안에서만 사용되며 클라이언트에 노출되지 않습니다.
