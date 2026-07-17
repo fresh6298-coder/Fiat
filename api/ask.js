@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const KB_PATH = path.join(__dirname, '..', 'data', 'knowledge-base.json');
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+const MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 const MAX_QUESTION_LEN = 800;
 const MAX_HISTORY_TURNS = 6;
 
