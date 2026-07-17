@@ -1,0 +1,168 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>경제학 학습노트 · 13강 시간선호</title>
+<meta name="theme-color" content="#2a78d6" />
+
+<style>
+  :root {
+    --surface-1: #fcfcfb; --page: #f9f9f7; --card: #ffffff;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --series-1: #2a78d6; --series-1-soft: #cde2fb;
+    --good: #006300; --warning: #b06a00; --critical: #c0392b;
+    --border: rgba(11, 11, 11, 0.10); --accent: #2a78d6; --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.05), 0 8px 24px rgba(11,11,11,.05);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --page: #0d0d0d; --card: #1f1f1e;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --series-1: #3987e5; --series-1-soft: #16324f;
+      --good: #0ca30c; --warning: #fab219; --critical: #e66767;
+      --border: rgba(255, 255, 255, 0.10); --accent: #3987e5;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 80px; }
+  header.top { margin-bottom: 16px; }
+  header.top .back { font-size: 12.5px; color: var(--accent); text-decoration: none; }
+  header.top h1 { font-size: 21px; margin: 6px 0 4px; letter-spacing: -0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; }
+  header.top .src { margin-top: 8px; font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  header.top .src a { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; margin: 16px -16px; flex-wrap: nowrap; overflow-x: auto; position: sticky; top: 0; z-index: 40; background: var(--page); padding: 10px 16px; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--text-secondary); white-space: nowrap; flex: 0 0 auto; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 .num { color: var(--accent); margin-right: 6px; }
+  .card .lead { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card li { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .card b { color: var(--text-primary); }
+  .term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .term-grid { grid-template-columns: 1fr; } }
+  .term { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .term .t { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .term .d { font-size: 13px; color: var(--text-secondary); }
+  details.q { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+  details.q summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  details.q .a { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); border-top: 1px dashed var(--border); padding-top: 8px; }
+  details.q .a b { color: var(--good); }
+  .quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 13.5px; color: var(--text-secondary); font-style: italic; margin: 10px 0; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="index.html">← 강의 목록</a>
+    <h1>📘 13강 · 시간선호</h1>
+    <div class="sub">현재재와 미래재 · 이자율의 뿌리 · 시간선호를 낮추는 조건 · 문명과 시간선호</div>
+    <div class="src">
+      출처: 경제학 원론 온라인 강좌 13강(<a href="https://www.youtube.com/watch?v=ZCnixqWsk8E" target="_blank" rel="noopener">원본 영상</a>)을 바탕으로 핵심 개념을 재구성한 학습노트입니다. 원 강의를 그대로 옮긴 것이 아니라, 개념을 이해하기 쉽게 요약·재정리했습니다.
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="concepts">🧩 핵심 개념</button>
+    <button class="tab" data-page="terms">📖 용어집</button>
+    <button class="tab" data-page="quiz">✅ 퀴즈</button>
+    <button class="tab" data-page="discuss">💬 생각해보기</button>
+  </nav>
+
+  <section class="page active" id="page-concepts">
+
+    <div class="card">
+      <h2><span class="num">1</span>시간선호란 무엇인가</h2>
+      <p class="lead">Preferring present goods over future goods</p>
+      <p><b>시간선호(time preference)</b>는 동일한 재화라면 미래보다 현재에 갖는 것을 더 선호하는 인간행동의 보편적 특성입니다(3강, 인간행동의 시간 구조). 오늘의 사과 하나가 1년 뒤의 사과 하나보다 더 가치 있게 느껴지는 이유는, 미래는 불확실하고 사람은 기다림 자체에 비용을 느끼기 때문입니다. 시간선호가 0이거나 음수인 사람은 존재하지 않는다는 것이 오스트리아학파의 공리적 출발점이며, 다만 그 <b>정도</b>는 사람과 사회, 시대에 따라 크게 달라질 수 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>이자율은 시간선호에서 나온다</h2>
+      <p class="lead">Time preference as the origin of the interest rate</p>
+      <p>미래재보다 현재재를 더 선호하기 때문에, 사람들은 현재 소비를 포기하고 저축·대출해주는 대가로 <b>추가적인 보상(이자)</b>을 요구합니다. 오스트리아학파(뵘바베르크, 미제스)는 이자율을 단순히 화폐 공급이나 중앙은행이 정하는 숫자가 아니라, <b>사회 전체 시간선호의 평균을 반영하는 자연스러운 가격</b>으로 봅니다. 시간선호가 낮은 사회는 자연이자율도 낮고, 시간선호가 높은 사회는 자연이자율도 높습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>시간선호를 낮추는 조건들</h2>
+      <p class="lead">What lowers time preference: property rights, sound money, stability</p>
+      <p>시간선호는 고정된 상수가 아니라 <b>환경에 반응</b>합니다. 재산권이 안전하게 보장되고(5강), 화폐 가치가 장기적으로 안정적이며(10강), 폭력적 약탈의 위험이 낮은 사회에서는 사람들이 미래를 위해 저축하고 계획할 유인이 커져 시간선호가 낮아집니다. 반대로 재산을 언제 빼앗길지 모르거나, 화폐 가치가 빠르게 훼손되거나, 전쟁·정치적 불안정이 심한 사회에서는 "오늘 쓰는 게 낫다"는 판단이 합리적이 되어 시간선호가 높아집니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>높은 시간선호의 결과</h2>
+      <p class="lead">Consequences of high time preference: short-termism</p>
+      <p>시간선호가 높은 개인·사회는 저축률이 낮고, 자본축적(6강, 12강)이 느리며, 장기적 투자보다 즉각적 소비와 쾌락을 우선시하는 경향을 보입니다. 강의는 이를 개인의 도덕적 실패가 아니라, <b>주어진 제도적 환경에 대한 합리적 반응</b>으로 설명합니다. 즉 시간선호가 높은 사회를 탓하기 전에, 그 사회의 재산권·화폐 제도가 애초에 저축을 벌하고 소비를 부추기고 있지는 않은지를 먼저 봐야 한다는 것입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">5</span>시간선호와 문명 (호페)</h2>
+      <p class="lead">Low time preference as the foundation of civilization (Hoppe)</p>
+      <p>한스헤르만 호페는 문명화 과정을 시간선호가 점진적으로 낮아지는 과정으로 해석합니다. 사냥·채집 사회에서 농경 사회로, 다시 산업 사회로 이행하면서 인간은 점점 더 먼 미래를 계획하고 그것을 위해 현재의 만족을 유예할 수 있게 되었습니다. 강의는 이 관점을 받아들여, <b>낮은 시간선호 = 더 많은 자본축적 = 더 높은 생활수준과 더 정교한 사회 협력</b>이라는 연결고리를 문명 발전의 핵심 동력으로 제시합니다.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">6</span>다음 강의로의 연결: 화폐와 시간선호</h2>
+      <p class="lead">Bridge to credit, banking, and monetary expansion</p>
+      <p>이 강의는 시간선호가 이후 다룰 신용(14강)과 통화팽창(15강)을 이해하는 데 핵심 열쇠라고 예고합니다. 신용 시장의 이자율은 원래 사회의 시간선호를 반영해야 하는데, 만약 화폐 당국이 인위적으로 이자율을 낮추거나 신용을 팽창시키면 <b>실제 시간선호와 시장 이자율 사이에 괴리</b>가 생깁니다. 이 괴리가 바로 다음 강의들에서 다룰 경기순환과 잘못된 투자(malinvestment)의 근본 원인이 됩니다.</p>
+    </div>
+
+  </section>
+
+  <section class="page" id="page-terms">
+    <div class="card">
+      <h2>📖 핵심 용어집</h2>
+      <div class="term-grid">
+        <div class="term"><div class="t">시간선호 (Time Preference)</div><div class="d">동일한 재화라면 미래보다 현재에 갖는 것을 더 선호하는 인간행동의 보편적 특성.</div></div>
+        <div class="term"><div class="t">자연이자율 (Natural Rate of Interest)</div><div class="d">사회 전체 시간선호의 평균을 반영해 시장에서 형성되는 이자율.</div></div>
+        <div class="term"><div class="t">현재재 / 미래재 (Present Goods / Future Goods)</div><div class="d">지금 사용 가능한 재화와, 미래 시점에야 사용 가능한 재화(또는 그에 대한 청구권).</div></div>
+        <div class="term"><div class="t">저시간선호 (Low Time Preference)</div><div class="d">미래를 위해 현재의 소비를 잘 유예할 수 있는 성향. 저축·자본축적·장기계획과 연결.</div></div>
+        <div class="term"><div class="t">고시간선호 (High Time Preference)</div><div class="d">즉각적 소비와 만족을 우선시하는 성향. 낮은 저축률, 단기적 사고와 연결.</div></div>
+        <div class="term"><div class="t">문명화 과정 (Civilizing Process, 호페)</div><div class="d">시간선호가 점진적으로 낮아지며 인간이 더 먼 미래를 계획하게 되는 역사적 흐름.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-quiz">
+    <div class="card">
+      <h2>✅ 이해도 확인 퀴즈</h2>
+      <p class="lead">클릭하면 정답과 해설이 열립니다.</p>
+      <details class="q"><summary>Q1. 시간선호가 0이거나 음수인 사람이 없다고 보는 이유는?</summary><div class="a"><b>정답:</b> 미래는 항상 불확실하고 기다림 자체에 비용이 따르기 때문에, 동일한 재화라면 누구나 현재를 미래보다 어느 정도 더 선호할 수밖에 없다는 것이 인간행동의 공리적 특성이기 때문.</div></details>
+      <details class="q"><summary>Q2. 오스트리아학파가 이자율을 어떻게 설명하는가?</summary><div class="a"><b>정답:</b> 중앙은행이 임의로 정하는 숫자가 아니라, 사회 전체의 시간선호 평균을 반영해 시장에서 자연스럽게 형성되는 가격으로 본다.</div></details>
+      <details class="q"><summary>Q3. 재산권이 불안정한 사회에서 시간선호가 높아지는 이유는?</summary><div class="a"><b>정답:</b> 재산을 언제 빼앗길지 모르는 상황에서는 저축하고 미래를 계획하기보다 지금 당장 소비하는 것이 더 합리적인 선택이 되기 때문.</div></details>
+      <details class="q"><summary>Q4. 강의가 고시간선호를 "도덕적 실패"가 아니라고 보는 이유는?</summary><div class="a"><b>정답:</b> 시간선호는 재산권·화폐 안정성 같은 제도적 환경에 대한 합리적 반응이므로, 개인을 탓하기 전에 그 사회의 제도가 저축을 벌하고 소비를 부추기고 있지 않은지를 먼저 봐야 한다는 것.</div></details>
+      <details class="q"><summary>Q5. 호페가 말하는 "문명화 과정"의 핵심은?</summary><div class="a"><b>정답:</b> 인간 사회가 발전하면서 시간선호가 점진적으로 낮아져 더 먼 미래를 계획하고 자본을 축적할 수 있게 되는 과정.</div></details>
+    </div>
+  </section>
+
+  <section class="page" id="page-discuss">
+    <div class="card">
+      <h2>💬 더 생각해볼 질문</h2>
+      <ul>
+        <li>시간선호가 제도적 환경의 산물이라면, 전쟁이나 정치적 격변을 겪은 사회가 다시 저시간선호 사회로 돌아가는 데는 얼마나 걸릴까?</li>
+        <li>현대 소비자 신용(할부·카드론 등)의 확산이 개인의 시간선호를 실제로 높이는 방향으로 작용할 수 있을까, 아니면 단순히 이미 존재하는 선호를 반영할 뿐일까?</li>
+        <li>호페의 "문명화 과정" 서사는 지나치게 목적론적(진보가 필연적)이라는 비판을 받을 수 있다. 시간선호가 다시 높아지는 역사적 후퇴 사례를 떠올릴 수 있는가?</li>
+        <li>기후위기처럼 수십 년 뒤의 미래를 고려해야 하는 문제에서, 사회 전체의 시간선호를 낮추는 정책적 접근이 가능할까 아니면 제도(재산권·화폐) 개선만으로 충분할까?</li>
+      </ul>
+      <p class="quote">💡 학습 팁: 시간선호는 이 강좌 후반부(14~15강 신용·통화팽창, 18강 문명과 자본주의)를 관통하는 핵심 축입니다. "이자율이 왜곡되면 시간선호와 실제 투자 사이에 괴리가 생긴다"는 문장을 기억해두면 이후 강의들이 훨씬 쉽게 연결됩니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+</script>

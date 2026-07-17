@@ -14,9 +14,15 @@ lecture-01.html      # 1강 · 인간행동과 경제학의 방법론
 lecture-02.html      # 2강 · 가치와 한계효용
 lecture-03.html      # 3강 · 시간
 lecture-04.html      # 4강 · 노동
+lecture-12.html      # 12강 · 자본주의
+lecture-13.html      # 13강 · 시간선호
+lecture-14.html      # 14강 · 신용과 은행업
+lecture-15.html      # 15강 · 통화팽창
+lecture-16.html      # 16강 · 폭력
+lecture-17.html      # 17강 · 국방
 lecture-18.html      # 18강 · 문명과 자본주의
 ```
 
-강의는 순차적으로 추가됩니다 (5강~17강 준비 중).
+강의는 순차적으로 추가됩니다 (5강~11강 준비 중, 별도 PR에서 진행 예정).
 
 GitHub Pages 또는 Vercel로 배포하면 `index.html`이 자동으로 저장소의 홈페이지로 뜹니다.
